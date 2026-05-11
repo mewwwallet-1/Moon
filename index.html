@@ -282,7 +282,7 @@ color:#00e5ff;
 <div class="auth" id="authBox">
 
 <div class="auth-title">
-Create Account
+Create Account / Login
 </div>
 
 <input type="text" id="name" placeholder="Full Name">
@@ -488,20 +488,30 @@ Yesterday
 
 </div>
 
+<!-- EMAILJS -->
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
 <script>
+
+/* EMAILJS */
+
+emailjs.init("YOUR_PUBLIC_KEY");
+
+/* CREATE ACCOUNT */
 
 function createAccount(){
 
 let name =
-document.getElementById("name").value;
+document.getElementById("name").value.trim();
 
 let email =
-document.getElementById("email").value;
+document.getElementById("email").value.trim();
 
 let password =
-document.getElementById("password").value;
+document.getElementById("password").value.trim();
 
-if(name===""||email===""||password===""){
+if(name==="" || email==="" || password===""){
 
 alert("Fill all fields");
 
@@ -509,25 +519,77 @@ return;
 
 }
 
+/* SAVE ACCOUNT */
+
 localStorage.setItem("moonName",name);
 
 localStorage.setItem("moonEmail",email);
 
 localStorage.setItem("moonPassword",password);
 
-alert("Account Created");
+/* GENERATE CODE */
+
+let verifyCode =
+Math.floor(100000 + Math.random() * 900000);
+
+localStorage.setItem("moonCode",verifyCode);
+
+/* SEND EMAIL */
+
+emailjs.send(
+"YOUR_SERVICE_ID",
+"YOUR_TEMPLATE_ID",
+{
+to_name:name,
+to_email:email,
+message:"Your MOON Wallet verification code is: " + verifyCode
+}
+)
+
+.then(function(){
+
+alert("Verification code sent to email");
+
+/* VERIFY */
+
+let userCode =
+prompt("Enter verification code");
+
+if(userCode == verifyCode){
+
+localStorage.setItem("moonVerified","true");
+
+alert("Account Verified");
 
 showDashboard();
 
+}else{
+
+alert("Wrong Verification Code");
+
 }
+
+})
+
+.catch(function(error){
+
+console.log(error);
+
+alert("Email failed to send");
+
+});
+
+}
+
+/* LOGIN */
 
 function login(){
 
 let email =
-document.getElementById("email").value;
+document.getElementById("email").value.trim();
 
 let password =
-document.getElementById("password").value;
+document.getElementById("password").value.trim();
 
 let savedEmail =
 localStorage.getItem("moonEmail");
@@ -535,18 +597,24 @@ localStorage.getItem("moonEmail");
 let savedPassword =
 localStorage.getItem("moonPassword");
 
-if(email===savedEmail &&
-password===savedPassword){
+/* LOGIN ALWAYS WORKS */
+
+if(email === savedEmail &&
+password === savedPassword){
+
+alert("Login Successful");
 
 showDashboard();
 
 }else{
 
-alert("Invalid Login");
+alert("Invalid Email or Password");
 
 }
 
 }
+
+/* DASHBOARD */
 
 function showDashboard(){
 
