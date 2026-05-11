@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MOON Wallet</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#050816;
+color:white;
+display:flex;
+justify-content:center;
+padding:20px;
+min-height:100vh;
+}
+
+.app{
+width:100%;
+max-width:430px;
+background:#0b1023;
+border-radius:35px;
+overflow:hidden;
+position:relative;
+box-shadow:
+0 0 40px rgba(0,255,255,.12),
+0 0 80px rgba(127,92,255,.08);
+}
+
+/* HEADER */
+
+.header{
+padding:25px 20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.logo{
+font-size:30px;
+font-weight:700;
+background:linear-gradient(90deg,#00e5ff,#7f5cff);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.notify{
+font-size:22px;
+}
+
+/* AUTH */
+
+.auth{
+padding:20px;
+display:flex;
+flex-direction:column;
+gap:15px;
+}
+
+.auth-title{
+font-size:32px;
+font-weight:700;
+margin-bottom:10px;
+}
+
+input{
+padding:16px;
+border:none;
+outline:none;
+border-radius:16px;
+background:#121933;
+color:white;
+font-size:15px;
+}
+
+input::placeholder{
+color:#9aa4c7;
+}
+
+button{
+padding:16px;
+border:none;
+border-radius:16px;
+background:linear-gradient(135deg,#00e5ff,#7f5cff);
+color:white;
+font-weight:600;
+font-size:16px;
+cursor:pointer;
+transition:.3s;
+}
+
+button:hover{
+transform:translateY(-3px);
+}
+
+/* DASHBOARD */
+
+.dashboard{
+display:none;
+padding-bottom:110px;
+}
+
+/* PROFILE */
+
+.profile{
+display:flex;
+align-items:center;
+gap:12px;
+padding:0 20px;
+margin-top:10px;
+}
+
+.avatar{
+width:55px;
+height:55px;
+border-radius:50%;
+background:#121933;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:22px;
+border:1px solid rgba(255,255,255,.08);
+}
+
+.small{
+font-size:12px;
+opacity:.7;
+letter-spacing:1px;
+text-transform:uppercase;
+}
+
+/* BALANCE CARD */
+
+.balance-card{
+margin:25px 20px;
+padding:30px;
+border-radius:30px;
+background:
+linear-gradient(135deg,#111827,#1f2937,#312e81);
+position:relative;
+overflow:hidden;
+border:1px solid rgba(255,255,255,.08);
+box-shadow:
+0 0 30px rgba(99,102,241,.35),
+0 0 60px rgba(0,255,255,.12);
+}
+
+.glow-circle{
+position:absolute;
+width:180px;
+height:180px;
+background:rgba(0,255,255,.18);
+border-radius:50%;
+top:-60px;
+right:-60px;
+filter:blur(30px);
+}
+
+.balance{
+font-size:42px;
+font-weight:700;
+margin-top:14px;
+background:linear-gradient(90deg,#ffffff,#00e5ff);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.card-number{
+margin-top:25px;
+font-size:14px;
+letter-spacing:2px;
+opacity:.85;
+}
+
+/* ACTIONS */
+
+.actions{
+display:flex;
+justify-content:space-between;
+padding:0 20px 25px;
+gap:10px;
+}
+
+.action{
+flex:1;
+height:78px;
+background:#121933;
+border-radius:22px;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+font-size:12px;
+gap:6px;
+transition:.3s;
+border:1px solid rgba(255,255,255,.05);
+cursor:pointer;
+}
+
+.action:hover{
+transform:translateY(-4px);
+background:#182041;
+}
+
+.icon{
+font-size:24px;
+}
+
+/* SECTION */
+
+.section{
+padding:0 20px;
+margin-top:10px;
+}
+
+.section-title{
+font-size:19px;
+font-weight:600;
+margin-bottom:15px;
+}
+
+.card{
+background:#121933;
+padding:18px;
+border-radius:22px;
+margin-bottom:15px;
+border:1px solid rgba(255,255,255,.04);
+transition:.3s;
+}
+
+.card:hover{
+transform:scale(1.02);
+}
+
+.row{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.green{
+color:#00ff99;
+font-weight:600;
+}
+
+.red{
+color:#ff4f7b;
+font-weight:600;
+}
+
+/* TRANSACTIONS */
+
+.transaction{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:18px;
+}
+
+.left{
+display:flex;
+align-items:center;
+gap:12px;
+}
+
+.circle{
+width:48px;
+height:48px;
+background:#1b2348;
+border-radius:50%;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:18px;
+}
+
+/* BOTTOM NAV */
+
+.bottom{
+position:fixed;
+bottom:0;
+width:100%;
+max-width:430px;
+background:#0d1328;
+padding:18px 10px;
+display:flex;
+justify-content:space-around;
+border-top:1px solid rgba(255,255,255,.08);
+}
+
+.nav{
+display:flex;
+flex-direction:column;
+align-items:center;
+font-size:12px;
+opacity:.7;
+gap:4px;
+}
+
+.active{
+opacity:1;
+color:#00e5ff;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<!-- HEADER -->
+
+<div class="header">
+
+<div class="logo">
+MOON 🌙
+</div>
+
+<div class="notify">
+🔔
+</div>
+
+</div>
+
+<!-- AUTH -->
+
+<div class="auth" id="authBox">
+
+<div class="auth-title">
+Create Account
+</div>
+
+<input type="text" id="name" placeholder="Full Name">
+
+<input type="email" id="email" placeholder="Email">
+
+<input type="password" id="password" placeholder="Password">
+
+<button onclick="createAccount()">
+Create Account
+</button>
+
+<button onclick="login()">
+Login
+</button>
+
+</div>
+
+<!-- DASHBOARD -->
+
+<div class="dashboard" id="dashboard">
+
+<!-- PROFILE -->
+
+<div class="profile">
+
+<div class="avatar">
+👤
+</div>
+
+<div>
+
+<div id="welcomeUser">
+User
+</div>
+
+<div class="small">
+Premium Member
+</div>
+
+</div>
+
+</div>
+
+<!-- BALANCE -->
+
+<div class="balance-card">
+
+<div class="small">
+Available Balance
+</div>
+
+<div class="balance">
+€50,000.68
+</div>
+
+<div class="card-number">
+MOON • PREMIUM ACCOUNT
+</div>
+
+<div class="glow-circle"></div>
+
+</div>
+
+<!-- ACTIONS -->
+
+<div class="actions">
+
+<!-- DEPOSIT -->
+
+<div class="action">
+<div class="icon">💰</div>
+Deposit
+</div>
+
+<!-- WITHDRAW -->
+
+<div class="action" onclick="withdrawAlert()">
+<div class="icon">🏦</div>
+Withdraw
+</div>
+
+<!-- CRYPTO -->
+
+<div class="action">
+<div class="icon">₿</div>
+Crypto
+</div>
+
+</div>
+
+<!-- MARKET -->
+
+<div class="section">
+
+<div class="section-title">
+Live Market
+</div>
+
+<!-- BITCOIN PROFILE -->
+
+<div class="card">
+
+<div class="row">
+
+<div style="display:flex;align-items:center;gap:12px;">
+
+<div style="
+width:50px;
+height:50px;
+border-radius:50%;
+background:#f7931a;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:24px;
+color:white;
+">
+₿
+</div>
+
+<div>
+
+<div style="font-size:17px;font-weight:600;">
+Bitcoin
+</div>
+
+<div class="small">
+Crypto Profile
+</div>
+
+</div>
+
+</div>
+
+<div class="green">
++4.6%
+</div>
+
+</div>
+
+<div style="
+margin-top:18px;
+padding-top:15px;
+border-top:1px solid rgba(255,255,255,.06);
+display:flex;
+justify-content:space-between;
+">
+
+<div>
+<div class="small">Price</div>
+<div style="margin-top:5px;">
+€49,000
+</div>
+</div>
+
+<div>
+<div class="small">Holdings</div>
+<div style="margin-top:5px;">
+0.82 BTC
+</div>
+</div>
+
+<div>
+<div class="small">Profit</div>
+<div class="green" style="margin-top:5px;">
++€8,420
+</div>
+</div>
+
+</div>
+
+</div>
+
+<!-- ETHEREUM -->
+
+<div class="card">
+
+<div class="row">
+
+<div style="display:flex;align-items:center;gap:10px;">
+
+<div style="font-size:24px;">Ξ</div>
+
+<div>
+<div>Ethereum</div>
+<div class="small">
+Smart Chain
+</div>
+</div>
+
+</div>
+
+<div class="green">
++2.1%
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- TRANSACTIONS -->
+
+<div class="section">
+
+<div class="section-title">
+Recent Transactions
+</div>
+
+<div class="card">
+
+<div class="transaction">
+
+<div class="left">
+
+<div class="circle">
+⬇️
+</div>
+
+<div>
+<div>Deposit</div>
+<div class="small">
+Today
+</div>
+</div>
+
+</div>
+
+<div class="green">
++ €8,000
+</div>
+
+</div>
+
+<div class="transaction">
+
+<div class="left">
+
+<div class="circle">
+🎁
+</div>
+
+<div>
+<div>Bonus Reward</div>
+<div class="small">
+Yesterday
+</div>
+</div>
+
+</div>
+
+<div class="green">
++ €2,450
+</div>
+
+</div>
+
+<div class="transaction">
+
+<div class="left">
+
+<div class="circle">
+🎉
+</div>
+
+<div>
+<div>Cashback Reward</div>
+<div class="small">
+2 days ago
+</div>
+</div>
+
+</div>
+
+<div class="green">
++ €650
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- NAVIGATION -->
+
+<div class="bottom">
+
+<div class="nav active">
+🏠
+<div>Home</div>
+</div>
+
+<div class="nav">
+💳
+<div>Wallet</div>
+</div>
+
+<div class="nav">
+📈
+<div>Market</div>
+</div>
+
+<div class="nav">
+🎁
+<div>Rewards</div>
+</div>
+
+<div class="nav">
+👤
+<div>Profile</div>
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+function createAccount(){
+
+let name =
+document.getElementById("name").value;
+
+let email =
+document.getElementById("email").value;
+
+let password =
+document.getElementById("password").value;
+
+if(name===""||email===""||password===""){
+
+alert("Fill all fields");
+
+return;
+
+}
+
+localStorage.setItem("moonName",name);
+
+localStorage.setItem("moonEmail",email);
+
+localStorage.setItem("moonPassword",password);
+
+alert("MOON Account Created 🌙");
+
+showDashboard();
+
+}
+
+function login(){
+
+let email =
+document.getElementById("email").value;
+
+let password =
+document.getElementById("password").value;
+
+let savedEmail =
+localStorage.getItem("moonEmail");
+
+let savedPassword =
+localStorage.getItem("moonPassword");
+
+if(email===savedEmail &&
+password===savedPassword){
+
+showDashboard();
+
+}else{
+
+alert("Invalid Login");
+
+}
+
+}
+
+function showDashboard(){
+
+document.getElementById("authBox").style.display="none";
+
+document.getElementById("dashboard").style.display="block";
+
+document.getElementById("welcomeUser").innerHTML =
+localStorage.getItem("moonName");
+
+}
+
+/* WITHDRAW ALERT */
+
+function withdrawAlert(){
+
+alert(
+"You need to make the payment of €350 to activate withdrawal."
+);
+
+}
+
+</script>
+
+</body>
+</html>
