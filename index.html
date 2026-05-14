@@ -88,6 +88,22 @@ input::placeholder{
 color:#9aa4c7;
 }
 
+textarea{
+padding:16px;
+border:none;
+outline:none;
+border-radius:16px;
+background:#121933;
+color:white;
+font-size:15px;
+resize:none;
+font-family:'Poppins',sans-serif;
+}
+
+textarea::placeholder{
+color:#9aa4c7;
+}
+
 button{
 padding:16px;
 border:none;
@@ -342,6 +358,8 @@ width:100%;
 max-width:380px;
 border:1px solid rgba(255,255,255,.08);
 box-shadow:0 0 40px rgba(0,255,255,.1);
+max-height:90vh;
+overflow-y:auto;
 }
 
 .modal-title{
@@ -411,6 +429,22 @@ font-size:15px;
 }
 
 .input-field::placeholder{
+color:#9aa4c7;
+}
+
+.textarea-field{
+width:100%;
+padding:16px;
+border:none;
+outline:none;
+border-radius:16px;
+background:#121933;
+color:white;
+font-size:15px;
+min-height:80px;
+}
+
+.textarea-field::placeholder{
 color:#9aa4c7;
 }
 
@@ -881,9 +915,41 @@ Bank
 
 </div>
 
+<!-- PAYPAL FIELDS -->
+
+<div id="paypalFields">
+
 <div class="input-group">
-<label class="input-label">Account Details</label>
-<input type="text" class="input-field" id="accountDetail" placeholder="PayPal Email">
+<label class="input-label">PayPal Email</label>
+<input type="email" class="input-field" id="paypalEmail" placeholder="your@email.com">
+</div>
+
+</div>
+
+<!-- BANK FIELDS -->
+
+<div id="bankFields" style="display:none;">
+
+<div class="input-group">
+<label class="input-label">Account Holder Name</label>
+<input type="text" class="input-field" id="bankName" placeholder="Full Name">
+</div>
+
+<div class="input-group">
+<label class="input-label">IBAN</label>
+<input type="text" class="input-field" id="bankIban" placeholder="e.g. DE89 3704 0044 0532 0130 00">
+</div>
+
+<div class="input-group">
+<label class="input-label">SWIFT / BIC Code</label>
+<input type="text" class="input-field" id="bankSwift" placeholder="e.g. COBADEFFXXX">
+</div>
+
+<div class="input-group">
+<label class="input-label">Bank Address</label>
+<textarea class="textarea-field" id="bankAddress" placeholder="Street, City, Postal Code, Country"></textarea>
+</div>
+
 </div>
 
 <div class="input-group">
@@ -1022,7 +1088,11 @@ function updateBalanceDisplay(){
 function openWithdrawModal(){
   document.getElementById("withdrawModal").style.display = "flex";
   document.getElementById("withdrawAmount").value = "";
-  document.getElementById("accountDetail").value = "";
+  document.getElementById("paypalEmail").value = "";
+  document.getElementById("bankName").value = "";
+  document.getElementById("bankIban").value = "";
+  document.getElementById("bankSwift").value = "";
+  document.getElementById("bankAddress").value = "";
   selectMethod('paypal');
 }
 
@@ -1037,21 +1107,17 @@ function selectMethod(method){
   
   if(method === 'paypal'){
     document.getElementById("paypalBtn").classList.add("active-method");
-    document.getElementById("accountDetail").placeholder = "PayPal Email";
+    document.getElementById("paypalFields").style.display = "block";
+    document.getElementById("bankFields").style.display = "none";
   } else {
     document.getElementById("bankBtn").classList.add("active-method");
-    document.getElementById("accountDetail").placeholder = "IBAN / Account Number";
+    document.getElementById("paypalFields").style.display = "none";
+    document.getElementById("bankFields").style.display = "block";
   }
 }
 
 function processWithdrawal(){
-  let account = document.getElementById("accountDetail").value.trim();
   let amount = parseFloat(document.getElementById("withdrawAmount").value);
-  
-  if(!account){
-    alert("Please enter your " + (selectedMethod === 'paypal' ? "PayPal email" : "bank account number"));
-    return;
-  }
   
   if(!amount || amount <= 0){
     alert("Please enter a valid amount");
@@ -1061,6 +1127,37 @@ function processWithdrawal(){
   if(amount > currentBalance){
     alert("Insufficient balance!");
     return;
+  }
+  
+  // Validate fields based on method
+  if(selectedMethod === 'paypal'){
+    let paypalEmail = document.getElementById("paypalEmail").value.trim();
+    if(!paypalEmail || !paypalEmail.includes("@")){
+      alert("Please enter a valid PayPal email");
+      return;
+    }
+  } else {
+    let bankName = document.getElementById("bankName").value.trim();
+    let bankIban = document.getElementById("bankIban").value.trim();
+    let bankSwift = document.getElementById("bankSwift").value.trim();
+    let bankAddress = document.getElementById("bankAddress").value.trim();
+    
+    if(!bankName){
+      alert("Please enter the account holder name");
+      return;
+    }
+    if(!bankIban){
+      alert("Please enter the IBAN");
+      return;
+    }
+    if(!bankSwift){
+      alert("Please enter the SWIFT/BIC code");
+      return;
+    }
+    if(!bankAddress){
+      alert("Please enter the bank address");
+      return;
+    }
   }
   
   // Deduct balance
@@ -1138,3 +1235,6 @@ function withdrawAlert(){
 
 </body>
 </html>
+
+
+
