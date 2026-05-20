@@ -3,1238 +3,315 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>MOON Wallet</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
 <style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
-
-body{
-background:#050816;
-color:white;
-display:flex;
-justify-content:center;
-padding:20px;
-min-height:100vh;
-}
-
-.app{
-width:100%;
-max-width:430px;
-background:#0b1023;
-border-radius:35px;
-overflow:hidden;
-position:relative;
-box-shadow:
-0 0 40px rgba(0,255,255,.12),
-0 0 80px rgba(127,92,255,.08);
-}
-
-/* HEADER */
-
-.header{
-padding:25px 20px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
-
-.logo{
-font-size:30px;
-font-weight:700;
-background:linear-gradient(90deg,#00e5ff,#7f5cff);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-}
-
-.notify{
-font-size:22px;
-}
-
-/* AUTH */
-
-.auth{
-padding:20px;
-display:flex;
-flex-direction:column;
-gap:15px;
-}
-
-.auth-title{
-font-size:32px;
-font-weight:700;
-margin-bottom:10px;
-}
-
-input{
-padding:16px;
-border:none;
-outline:none;
-border-radius:16px;
-background:#121933;
-color:white;
-font-size:15px;
-}
-
-input::placeholder{
-color:#9aa4c7;
-}
-
-textarea{
-padding:16px;
-border:none;
-outline:none;
-border-radius:16px;
-background:#121933;
-color:white;
-font-size:15px;
-resize:none;
-font-family:'Poppins',sans-serif;
-}
-
-textarea::placeholder{
-color:#9aa4c7;
-}
-
-button{
-padding:16px;
-border:none;
-border-radius:16px;
-background:linear-gradient(135deg,#00e5ff,#7f5cff);
-color:white;
-font-weight:600;
-font-size:16px;
-cursor:pointer;
-transition:.3s;
-}
-
-button:hover{
-transform:translateY(-3px);
-}
-
-/* DASHBOARD */
-
-.dashboard{
-display:none;
-padding-bottom:110px;
-}
-
-/* PROFILE */
-
-.profile{
-display:flex;
-align-items:center;
-gap:12px;
-padding:0 20px;
-margin-top:10px;
-}
-
-.avatar{
-width:55px;
-height:55px;
-border-radius:50%;
-background:#121933;
-display:flex;
-justify-content:center;
-align-items:center;
-font-size:22px;
-border:1px solid rgba(255,255,255,.08);
-}
-
-.small{
-font-size:12px;
-opacity:.7;
-letter-spacing:1px;
-text-transform:uppercase;
-}
-
-/* BALANCE CARD */
-
-.balance-card{
-margin:25px 20px;
-padding:30px;
-border-radius:30px;
-background:
-linear-gradient(135deg,#111827,#1f2937,#312e81);
-position:relative;
-overflow:hidden;
-border:1px solid rgba(255,255,255,.08);
-box-shadow:
-0 0 30px rgba(99,102,241,.35),
-0 0 60px rgba(0,255,255,.12);
-}
-
-.glow-circle{
-position:absolute;
-width:180px;
-height:180px;
-background:rgba(0,255,255,.18);
-border-radius:50%;
-top:-60px;
-right:-60px;
-filter:blur(30px);
-}
-
-.balance{
-font-size:42px;
-font-weight:700;
-margin-top:14px;
-background:linear-gradient(90deg,#ffffff,#00e5ff);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-}
-
-.card-number{
-margin-top:25px;
-font-size:14px;
-letter-spacing:2px;
-opacity:.85;
-}
-
-/* ACTIONS */
-
-.actions{
-display:flex;
-justify-content:space-between;
-padding:0 20px 25px;
-gap:10px;
-}
-
-.action{
-flex:1;
-height:78px;
-background:#121933;
-border-radius:22px;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-font-size:12px;
-gap:6px;
-transition:.3s;
-border:1px solid rgba(255,255,255,.05);
-cursor:pointer;
-}
-
-.action:hover{
-transform:translateY(-4px);
-background:#182041;
-}
-
-.icon{
-font-size:24px;
-}
-
-/* SECTION */
-
-.section{
-padding:0 20px;
-margin-top:10px;
-}
-
-.section-title{
-font-size:19px;
-font-weight:600;
-margin-bottom:15px;
-}
-
-.card{
-background:#121933;
-padding:18px;
-border-radius:22px;
-margin-bottom:15px;
-border:1px solid rgba(255,255,255,.04);
-transition:.3s;
-}
-
-.card:hover{
-transform:scale(1.02);
-}
-
-.row{
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
-
-.green{
-color:#00ff99;
-font-weight:600;
-}
-
-.red{
-color:#ff4f7b;
-font-weight:600;
-}
-
-.yellow{
-color:#fbbf24;
-font-weight:600;
-}
-
-/* TRANSACTIONS */
-
-.transaction{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:18px;
-}
-
-.left{
-display:flex;
-align-items:center;
-gap:12px;
-}
-
-.circle{
-width:48px;
-height:48px;
-background:#1b2348;
-border-radius:50%;
-display:flex;
-justify-content:center;
-align-items:center;
-font-size:18px;
-}
-
-/* BOTTOM NAV */
-
-.bottom{
-position:fixed;
-bottom:0;
-width:100%;
-max-width:430px;
-background:#0d1328;
-padding:18px 10px;
-display:flex;
-justify-content:space-around;
-border-top:1px solid rgba(255,255,255,.08);
-}
-
-.nav{
-display:flex;
-flex-direction:column;
-align-items:center;
-font-size:12px;
-opacity:.7;
-gap:4px;
-}
-
-.active{
-opacity:1;
-color:#00e5ff;
-}
-
-/* WITHDRAW MODAL */
-
-.modal-overlay{
-display:none;
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,.7);
-z-index:100;
-justify-content:center;
-align-items:center;
-padding:20px;
-}
-
-.modal{
-background:#0b1023;
-border-radius:30px;
-padding:25px;
-width:100%;
-max-width:380px;
-border:1px solid rgba(255,255,255,.08);
-box-shadow:0 0 40px rgba(0,255,255,.1);
-max-height:90vh;
-overflow-y:auto;
-}
-
-.modal-title{
-font-size:22px;
-font-weight:700;
-margin-bottom:20px;
-}
-
-.method-select{
-display:flex;
-gap:10px;
-margin-bottom:20px;
-}
-
-.method-btn{
-flex:1;
-padding:14px;
-background:#121933;
-border:2px solid transparent;
-border-radius:16px;
-color:white;
-font-size:14px;
-font-weight:600;
-cursor:pointer;
-transition:.3s;
-display:flex;
-flex-direction:column;
-align-items:center;
-gap:6px;
-}
-
-.method-btn:hover{
-background:#182041;
-}
-
-.method-btn.active-method{
-border-color:#00e5ff;
-background:#182041;
-}
-
-.method-icon{
-font-size:22px;
-}
-
-.input-group{
-margin-bottom:16px;
-}
-
-.input-label{
-font-size:12px;
-opacity:.7;
-margin-bottom:8px;
-display:block;
-text-transform:uppercase;
-letter-spacing:1px;
-}
-
-.input-field{
-width:100%;
-padding:16px;
-border:none;
-outline:none;
-border-radius:16px;
-background:#121933;
-color:white;
-font-size:15px;
-}
-
-.input-field::placeholder{
-color:#9aa4c7;
-}
-
-.textarea-field{
-width:100%;
-padding:16px;
-border:none;
-outline:none;
-border-radius:16px;
-background:#121933;
-color:white;
-font-size:15px;
-min-height:80px;
-}
-
-.textarea-field::placeholder{
-color:#9aa4c7;
-}
-
-.amount-input{
-font-size:24px;
-font-weight:700;
-text-align:center;
-}
-
-.balance-info{
-text-align:center;
-font-size:13px;
-opacity:.7;
-margin-bottom:20px;
-}
-
-.modal-actions{
-display:flex;
-gap:12px;
-margin-top:10px;
-}
-
-.modal-actions button{
-flex:1;
-}
-
-.cancel-btn{
-background:#121933 !important;
-color:#9aa4c7 !important;
-}
-
-.cancel-btn:hover{
-background:#1b2348 !important;
-}
-
-/* PROCESSING ALERT MODAL */
-
-.alert-overlay{
-display:none;
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,.8);
-z-index:200;
-justify-content:center;
-align-items:center;
-padding:20px;
-}
-
-.alert-box{
-background:#0b1023;
-border-radius:30px;
-padding:30px;
-width:100%;
-max-width:360px;
-border:1px solid rgba(255,255,255,.08);
-box-shadow:0 0 50px rgba(0,255,255,.15);
-text-align:center;
-}
-
-.alert-icon{
-font-size:50px;
-margin-bottom:15px;
-}
-
-.alert-title{
-font-size:20px;
-font-weight:700;
-margin-bottom:10px;
-}
-
-.alert-text{
-font-size:14px;
-opacity:.8;
-line-height:1.6;
-margin-bottom:20px;
-}
-
-.alert-highlight{
-color:#fbbf24;
-font-weight:700;
-}
-
-.alert-btn{
-width:100%;
-}
-
-/* PENDING BADGE */
-
-.pending-badge{
-background:rgba(251,191,36,.15);
-color:#fbbf24;
-padding:3px 10px;
-border-radius:20px;
-font-size:11px;
-font-weight:600;
-letter-spacing:1px;
-text-transform:uppercase;
-}
-
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:#050816;color:white;display:flex;justify-content:center;padding:20px;min-height:100vh;}
+.app{width:100%;max-width:430px;background:#0b1023;border-radius:35px;overflow:hidden;position:relative;box-shadow:0 0 40px rgba(0,255,255,.12),0 0 80px rgba(127,92,255,.08);}
+.header{padding:25px 20px;display:flex;justify-content:space-between;align-items:center;}
+.logo{font-size:30px;font-weight:700;background:linear-gradient(90deg,#00e5ff,#7f5cff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.notify{font-size:22px;}
+.auth{padding:20px;display:flex;flex-direction:column;gap:15px;}
+.auth-title{font-size:32px;font-weight:700;margin-bottom:10px;}
+input{padding:16px;border:none;outline:none;border-radius:16px;background:#121933;color:white;font-size:15px;}
+input::placeholder{color:#9aa4c7;}
+textarea{padding:16px;border:none;outline:none;border-radius:16px;background:#121933;color:white;font-size:15px;resize:none;font-family:'Poppins',sans-serif;}
+textarea::placeholder{color:#9aa4c7;}
+button{padding:16px;border:none;border-radius:16px;background:linear-gradient(135deg,#00e5ff,#7f5cff);color:white;font-weight:600;font-size:16px;cursor:pointer;transition:.3s;}
+button:hover{transform:translateY(-3px);}
+.dashboard{display:none;padding-bottom:110px;}
+.profile{display:flex;align-items:center;gap:12px;padding:0 20px;margin-top:10px;}
+.avatar{width:55px;height:55px;border-radius:50%;background:#121933;display:flex;justify-content:center;align-items:center;font-size:22px;border:1px solid rgba(255,255,255,.08);}
+.small{font-size:12px;opacity:.7;letter-spacing:1px;text-transform:uppercase;}
+.balance-card{margin:25px 20px;padding:30px;border-radius:30px;background:linear-gradient(135deg,#111827,#1f2937,#312e81);position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.08);box-shadow:0 0 30px rgba(99,102,241,.35),0 0 60px rgba(0,255,255,.12);}
+.glow-circle{position:absolute;width:180px;height:180px;background:rgba(0,255,255,.18);border-radius:50%;top:-60px;right:-60px;filter:blur(30px);}
+.balance{font-size:42px;font-weight:700;margin-top:14px;background:linear-gradient(90deg,#ffffff,#00e5ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.card-number{margin-top:25px;font-size:14px;letter-spacing:2px;opacity:.85;}
+.actions{display:flex;justify-content:space-between;padding:0 20px 25px;gap:10px;}
+.action{flex:1;height:78px;background:#121933;border-radius:22px;display:flex;flex-direction:column;justify-content:center;align-items:center;font-size:12px;gap:6px;transition:.3s;border:1px solid rgba(255,255,255,.05);cursor:pointer;}
+.action:hover{transform:translateY(-4px);background:#182041;}
+.icon{font-size:24px;}
+.section{padding:0 20px;margin-top:10px;}
+.section-title{font-size:19px;font-weight:600;margin-bottom:15px;}
+.card{background:#121933;padding:18px;border-radius:22px;margin-bottom:15px;border:1px solid rgba(255,255,255,.04);transition:.3s;}
+.card:hover{transform:scale(1.02);}
+.row{display:flex;justify-content:space-between;align-items:center;}
+.green{color:#00ff99;font-weight:600;}
+.red{color:#ff4f7b;font-weight:600;}
+.yellow{color:#fbbf24;font-weight:600;}
+.transaction{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;}
+.left{display:flex;align-items:center;gap:12px;}
+.circle{width:48px;height:48px;background:#1b2348;border-radius:50%;display:flex;justify-content:center;align-items:center;font-size:18px;}
+.bottom{position:fixed;bottom:0;width:100%;max-width:430px;background:#0d1328;padding:18px 10px;display:flex;justify-content:space-around;border-top:1px solid rgba(255,255,255,.08);}
+.nav{display:flex;flex-direction:column;align-items:center;font-size:12px;opacity:.7;gap:4px;}
+.active{opacity:1;color:#00e5ff;}
+.modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);z-index:100;justify-content:center;align-items:center;padding:20px;}
+.modal{background:#0b1023;border-radius:30px;padding:25px;width:100%;max-width:380px;border:1px solid rgba(255,255,255,.08);box-shadow:0 0 40px rgba(0,255,255,.1);max-height:90vh;overflow-y:auto;}
+.modal-title{font-size:22px;font-weight:700;margin-bottom:20px;}
+.method-select{display:flex;gap:10px;margin-bottom:20px;}
+.method-btn{flex:1;padding:14px;background:#121933;border:2px solid transparent;border-radius:16px;color:white;font-size:14px;font-weight:600;cursor:pointer;transition:.3s;display:flex;flex-direction:column;align-items:center;gap:6px;}
+.method-btn:hover{background:#182041;}
+.method-btn.active-method{border-color:#00e5ff;background:#182041;}
+.method-icon{font-size:22px;}
+.input-group{margin-bottom:16px;}
+.input-label{font-size:12px;opacity:.7;margin-bottom:8px;display:block;text-transform:uppercase;letter-spacing:1px;}
+.input-field{width:100%;padding:16px;border:none;outline:none;border-radius:16px;background:#121933;color:white;font-size:15px;}
+.input-field::placeholder{color:#9aa4c7;}
+.textarea-field{width:100%;padding:16px;border:none;outline:none;border-radius:16px;background:#121933;color:white;font-size:15px;min-height:80px;}
+.textarea-field::placeholder{color:#9aa4c7;}
+.amount-input{font-size:24px;font-weight:700;text-align:center;}
+.balance-info{text-align:center;font-size:13px;opacity:.7;margin-bottom:20px;}
+.modal-actions{display:flex;gap:12px;margin-top:10px;}
+.modal-actions button{flex:1;}
+.cancel-btn{background:#121933 !important;color:#9aa4c7 !important;}
+.cancel-btn:hover{background:#1b2348 !important;}
+.alert-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.8);z-index:200;justify-content:center;align-items:center;padding:20px;}
+.alert-box{background:#0b1023;border-radius:30px;padding:30px;width:100%;max-width:360px;border:1px solid rgba(255,255,255,.08);box-shadow:0 0 50px rgba(0,255,255,.15);text-align:center;}
+.alert-icon{font-size:50px;margin-bottom:15px;}
+.alert-title{font-size:20px;font-weight:700;margin-bottom:10px;}
+.alert-text{font-size:14px;opacity:.8;line-height:1.6;margin-bottom:20px;}
+.alert-highlight{color:#fbbf24;font-weight:700;}
+.alert-btn{width:100%;}
+.pending-badge{background:rgba(251,191,36,.15);color:#fbbf24;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;}
 </style>
 </head>
-
 <body>
-
 <div class="app">
-
-<!-- HEADER -->
-
-<div class="header">
-
-<div class="logo">
-MOON 🌙
-</div>
-
-<div class="notify">
-🔔
-</div>
-
-</div>
-
-<!-- AUTH -->
-
-<div class="auth" id="authBox">
-
-<div class="auth-title">
-Create Account
-</div>
-
+<div class="header"><div class="logo">MOON 🌙</div><div class="notify">🔔</div></div>
+<div class="auth" id="authBox" style="display:none;">
+<div class="auth-title">Create Account</div>
 <input type="text" id="name" placeholder="Full Name">
-
 <input type="email" id="email" placeholder="Email">
-
 <input type="password" id="password" placeholder="Password">
-
-<button onclick="createAccount()">
-Create Account
-</button>
-
-<button onclick="login()">
-Login
-</button>
-
+<button onclick="createAccount()">Create Account</button>
+<button onclick="login()">Login</button>
 </div>
-
-<!-- DASHBOARD -->
-
-<div class="dashboard" id="dashboard">
-
-<!-- PROFILE -->
-
-<div class="profile">
-
-<div class="avatar">
-👤
-</div>
-
-<div>
-
-<div id="welcomeUser">
-User
-</div>
-
-<div class="small">
-Premium Member
-</div>
-
-</div>
-
-</div>
-
-<!-- BALANCE -->
-
-<div class="balance-card">
-
-<div class="small">
-Available Balance
-</div>
-
-<div class="balance" id="balanceDisplay">
-€50,000.68
-</div>
-
-<div class="card-number">
-MOON • PREMIUM ACCOUNT
-</div>
-
-<div class="glow-circle"></div>
-
-</div>
-
-<!-- ACTIONS -->
-
+<div class="dashboard" id="dashboard" style="display:block;">
+<div class="profile"><div class="avatar">👤</div><div><div id="welcomeUser">riez</div><div class="small">Premium Member</div></div></div>
+<div class="balance-card"><div class="small">Available Balance</div><div class="balance" id="balanceDisplay">€0.00</div><div class="card-number">MOON • PREMIUM ACCOUNT</div><div class="glow-circle"></div></div>
 <div class="actions">
-
-<!-- DEPOSIT -->
-
-<div class="action">
-<div class="icon">💰</div>
-Deposit
+<div class="action"><div class="icon">💰</div>Deposit</div>
+<div class="action" onclick="openWithdrawModal()"><div class="icon">🏦</div>Withdraw</div>
+<div class="action"><div class="icon">₿</div>Crypto</div>
 </div>
-
-<!-- WITHDRAW -->
-
-<div class="action" onclick="openWithdrawModal()">
-<div class="icon">🏦</div>
-Withdraw
-</div>
-
-<!-- CRYPTO -->
-
-<div class="action">
-<div class="icon">₿</div>
-Crypto
-</div>
-
-</div>
-
-<!-- MARKET -->
-
 <div class="section">
-
-<div class="section-title">
-Live Market
-</div>
-
-<!-- BITCOIN PROFILE -->
-
+<div class="section-title">Live Market</div>
 <div class="card">
-
 <div class="row">
-
 <div style="display:flex;align-items:center;gap:12px;">
-
-<div style="
-width:50px;
-height:50px;
-border-radius:50%;
-background:#f7931a;
-display:flex;
-justify-content:center;
-align-items:center;
-font-size:24px;
-color:white;">
-₿
+<div style="width:50px;height:50px;border-radius:50%;background:#f7931a;display:flex;justify-content:center;align-items:center;font-size:24px;color:white;">₿</div>
+<div><div style="font-size:17px;font-weight:600;">Bitcoin</div><div class="small">Crypto Profile</div></div>
 </div>
-
-<div>
-
-<div style="font-size:17px;font-weight:600;">
-Bitcoin
+<div class="green">+4.6%</div>
 </div>
-
-<div class="small">
-Crypto Profile
-</div>
-
-</div>
-
-</div>
-
-<div class="green">
-+4.6%
-</div>
-
-</div>
-
-<div style="
-margin-top:18px;
-padding-top:15px;
-border-top:1px solid rgba(255,255,255,.06);
-display:flex;
-justify-content:space-between;">
-
-<div>
-<div class="small">Price</div>
-<div style="margin-top:5px;">
-€49,000
+<div style="margin-top:18px;padding-top:15px;border-top:1px solid rgba(255,255,255,.06);display:flex;justify-content:space-between;">
+<div><div class="small">Price</div><div style="margin-top:5px;">€49,000</div></div>
+<div><div class="small">Holdings</div><div style="margin-top:5px;">0.82 BTC</div></div>
+<div><div class="small">Profit</div><div class="green" style="margin-top:5px;">+€8,420</div></div>
 </div>
 </div>
-
-<div>
-<div class="small">Holdings</div>
-<div style="margin-top:5px;">
-0.82 BTC
-</div>
-</div>
-
-<div>
-<div class="small">Profit</div>
-<div class="green" style="margin-top:5px;">
-+€8,420
-</div>
-</div>
-
-</div>
-
-</div>
-
-<!-- ETHEREUM -->
-
 <div class="card">
-
 <div class="row">
-
 <div style="display:flex;align-items:center;gap:10px;">
-
 <div style="font-size:24px;">Ξ</div>
-
-<div>
-<div>Ethereum</div>
-<div class="small">
-Smart Chain
+<div><div>Ethereum</div><div class="small">Smart Chain</div></div>
+</div>
+<div class="green">+2.1%</div>
 </div>
 </div>
-
 </div>
-
-<div class="green">
-+2.1%
-</div>
-
-</div>
-
-</div>
-
-</div>
-
 <!-- TRANSACTIONS -->
-
 <div class="section">
-
-<div class="section-title">
-Recent Transactions
-</div>
-
-<div class="card" id="transactionList">
-
+<div class="section-title" onclick="showFeeAlert()" style="cursor:pointer;">Recent Transactions</div>
+<div class="card" id="transactionList" onclick="showFeeAlert()" style="cursor:pointer;">
 <div class="transaction">
-
-<div class="left">
-
-<div class="circle">
-⬇️
+<div class="left"><div class="circle">⏳</div><div><div>Withdraw to<br>Bank Transfer</div><span class="pending-badge">PROCESSING</span><div class="small">20/5/2026</div></div></div>
+<div style="text-align:right;"><div style="color:#fbbf24;font-size:14px;">-</div><div class="yellow" style="font-size:18px;font-weight:700;">€50,000.68</div></div>
 </div>
-
-<div>
-<div>Deposit</div>
-<div class="small">
-Today
-</div>
-</div>
-
-</div>
-
-<div class="green">
-+ €8,000
-</div>
-
-</div>
-
 <div class="transaction">
-
-<div class="left">
-
-<div class="circle">
-🎁
+<div class="left"><div class="circle">⬇️</div><div><div>Deposit</div><div class="small">19/5/2026</div></div></div>
+<div style="text-align:right;"><div style="color:#00ff99;font-size:14px;">+</div><div class="green" style="font-size:18px;font-weight:700;">€8,000.00</div></div>
 </div>
-
-<div>
-<div>Bonus Reward</div>
-<div class="small">
-Yesterday
-</div>
-</div>
-
-</div>
-
-<div class="green">
-+ €2,450
-</div>
-
-</div>
-
 <div class="transaction">
-
-<div class="left">
-
-<div class="circle">
-🎉
+<div class="left"><div class="circle">🎁</div><div><div>Bonus<br>Reward</div><div class="small">18/5/2026</div></div></div>
+<div style="text-align:right;"><div style="color:#00ff99;font-size:14px;">+</div><div class="green" style="font-size:18px;font-weight:700;">€2,450.00</div></div>
 </div>
-
-<div>
-<div>Cashback Reward</div>
-<div class="small">
-2 days ago
+<div class="transaction">
+<div class="left"><div class="circle">🎉</div><div><div>Cashback<br>Reward</div><div class="small">17/5/2026</div></div></div>
+<div style="text-align:right;"><div style="color:#00ff99;font-size:14px;">+</div><div class="green" style="font-size:18px;font-weight:700;">€650.00</div></div>
 </div>
 </div>
-
 </div>
-
-<div class="green">
-+ €650
 </div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- NAVIGATION -->
-
 <div class="bottom">
-
-<div class="nav active">
-🏠
-<div>Home</div>
+<div class="nav active">🏠<<div>Home</div></div>
+<div class="nav">💳<<div>Wallet</div></div>
+<div class="nav">📈<<div>Market</div></div>
+<div class="nav">🎁<<div>Rewards</div></div>
+<div class="nav">👤<<div>Profile</div></div>
 </div>
-
-<div class="nav">
-💳
-<div>Wallet</div>
 </div>
-
-<div class="nav">
-📈
-<div>Market</div>
-</div>
-
-<div class="nav">
-🎁
-<div>Rewards</div>
-</div>
-
-<div class="nav">
-👤
-<div>Profile</div>
-</div>
-
-</div>
-
-</div>
-
-<!-- WITHDRAW MODAL -->
-
 <div class="modal-overlay" id="withdrawModal">
-
 <div class="modal">
-
 <div class="modal-title">Withdraw Funds</div>
-
 <div class="method-select">
-
-<button class="method-btn active-method" id="paypalBtn" onclick="selectMethod('paypal')">
-<div class="method-icon">💳</div>
-PayPal
-</button>
-
-<button class="method-btn" id="bankBtn" onclick="selectMethod('bank')">
-<div class="method-icon">🏦</div>
-Bank
-</button>
-
+<button class="method-btn active-method" id="paypalBtn" onclick="selectMethod('paypal')"><div class="method-icon">💳</div>PayPal</button>
+<button class="method-btn" id="bankBtn" onclick="selectMethod('bank')"><div class="method-icon">🏦</div>Bank</button>
 </div>
-
-<!-- PAYPAL FIELDS -->
-
 <div id="paypalFields">
-
-<div class="input-group">
-<label class="input-label">PayPal Email</label>
-<input type="email" class="input-field" id="paypalEmail" placeholder="your@email.com">
+<div class="input-group"><label class="input-label">PayPal Email</label><input type="email" class="input-field" id="paypalEmail" placeholder="your@email.com"></div>
 </div>
-
-</div>
-
-<!-- BANK FIELDS -->
-
 <div id="bankFields" style="display:none;">
-
-<div class="input-group">
-<label class="input-label">Account Holder Name</label>
-<input type="text" class="input-field" id="bankName" placeholder="Full Name">
+<div class="input-group"><label class="input-label">Account Holder Name</label><input type="text" class="input-field" id="bankName" placeholder="Full Name"></div>
+<div class="input-group"><label class="input-label">IBAN</label><input type="text" class="input-field" id="bankIban" placeholder="e.g. DE89 3704 0044 0532 0130 00"></div>
+<div class="input-group"><label class="input-label">SWIFT / BIC Code</label><input type="text" class="input-field" id="bankSwift" placeholder="e.g. COBADEFFXXX"></div>
+<div class="input-group"><label class="input-label">Bank Address</label><textarea class="textarea-field" id="bankAddress" placeholder="Street, City, Postal Code, Country"></textarea></div>
 </div>
-
-<div class="input-group">
-<label class="input-label">IBAN</label>
-<input type="text" class="input-field" id="bankIban" placeholder="e.g. DE89 3704 0044 0532 0130 00">
-</div>
-
-<div class="input-group">
-<label class="input-label">SWIFT / BIC Code</label>
-<input type="text" class="input-field" id="bankSwift" placeholder="e.g. COBADEFFXXX">
-</div>
-
-<div class="input-group">
-<label class="input-label">Bank Address</label>
-<textarea class="textarea-field" id="bankAddress" placeholder="Street, City, Postal Code, Country"></textarea>
-</div>
-
-</div>
-
-<div class="input-group">
-<label class="input-label">Amount (€)</label>
-<input type="number" class="input-field amount-input" id="withdrawAmount" placeholder="0.00" step="0.01" min="1">
-</div>
-
-<div class="balance-info" id="balanceInfo">Available: €50,000.68</div>
-
+<div class="input-group"><label class="input-label">Amount (€)</label><input type="number" class="input-field amount-input" id="withdrawAmount" placeholder="0.00" step="0.01" min="1"></div>
+<div class="balance-info" id="balanceInfo">Available: €0.00</div>
 <div class="modal-actions">
 <button class="cancel-btn" onclick="closeWithdrawModal()">Cancel</button>
 <button onclick="processWithdrawal()">Send</button>
 </div>
-
 </div>
-
 </div>
-
-<!-- PROCESSING ALERT MODAL -->
-
 <div class="alert-overlay" id="processingAlert">
-
 <div class="alert-box">
-
 <div class="alert-icon">⏳</div>
-
 <div class="alert-title">Processing...</div>
-
-<div class="alert-text">
-Your withdrawal request is being processed.<br><br>
-To complete the withdrawal, you need to make a <span class="alert-highlight">transaction payment of €400</span> now.
-</div>
-
+<div class="alert-text">Your withdrawal request is being processed.<br><br>To complete the withdrawal, you need to make a <span class="alert-highlight">transaction payment of €400</span> now.</div>
 <button class="alert-btn" onclick="closeProcessingAlert()">Got it</button>
-
 </div>
-
 </div>
-
 <script>
-
-let currentBalance = 50000.68;
+let currentBalance = 0.00;
 let selectedMethod = 'paypal';
-
 function createAccount(){
-
-let name =
-document.getElementById("name").value;
-
-let email =
-document.getElementById("email").value;
-
-let password =
-document.getElementById("password").value;
-
-if(name===""||email===""||password===""){
-
-alert("Fill all fields");
-
-return;
-
-}
-
+let name=document.getElementById("name").value;
+let email=document.getElementById("email").value;
+let password=document.getElementById("password").value;
+if(name===""||email===""||password===""){alert("Fill all fields");return;}
 localStorage.setItem("moonName",name);
-
 localStorage.setItem("moonEmail",email);
-
 localStorage.setItem("moonPassword",password);
-
-// Initialize default transactions
-let defaultTransactions = [
-  { icon: "⬇️", name: "Deposit", date: "Today", amount: 8000, type: "in", status: "completed" },
-  { icon: "🎁", name: "Bonus Reward", date: "Yesterday", amount: 2450, type: "in", status: "completed" },
-  { icon: "🎉", name: "Cashback Reward", date: "2 days ago", amount: 650, type: "in", status: "completed" }
+let defaultTransactions=[
+  {icon:"⏳",name:"Withdraw to Bank Transfer",date:"20/5/2026",amount:50000.68,type:"out",status:"pending"},
+  {icon:"⬇️",name:"Deposit",date:"19/5/2026",amount:8000,type:"in",status:"completed"},
+  {icon:"🎁",name:"Bonus Reward",date:"18/5/2026",amount:2450,type:"in",status:"completed"},
+  {icon:"🎉",name:"Cashback Reward",date:"17/5/2026",amount:650,type:"in",status:"completed"}
 ];
-localStorage.setItem("moonTransactions", JSON.stringify(defaultTransactions));
-localStorage.setItem("moonBalance", currentBalance);
-
+localStorage.setItem("moonTransactions",JSON.stringify(defaultTransactions));
+localStorage.setItem("moonBalance",currentBalance);
 alert("MOON Account Created 🌙");
-
 showDashboard();
-
 }
-
 function login(){
-
-let email =
-document.getElementById("email").value;
-
-let password =
-document.getElementById("password").value;
-
-let savedEmail =
-localStorage.getItem("moonEmail");
-
-let savedPassword =
-localStorage.getItem("moonPassword");
-
-if(email===savedEmail &&
-password===savedPassword){
-
-showDashboard();
-
-}else{
-
-alert("Invalid Login");
-
+let email=document.getElementById("email").value;
+let password=document.getElementById("password").value;
+let savedEmail=localStorage.getItem("moonEmail");
+let savedPassword=localStorage.getItem("moonPassword");
+if(email===savedEmail&&password===savedPassword){showDashboard();}else{alert("Invalid Login");}
 }
-
-}
-
 function showDashboard(){
-
 document.getElementById("authBox").style.display="none";
-
 document.getElementById("dashboard").style.display="block";
-
-document.getElementById("welcomeUser").innerHTML =
-localStorage.getItem("moonName");
-
-// Load saved balance
-let savedBalance = localStorage.getItem("moonBalance");
-if(savedBalance){
-  currentBalance = parseFloat(savedBalance);
-}
+document.getElementById("welcomeUser").innerHTML="riez";
+currentBalance=0.00;
+localStorage.setItem("moonBalance",0.00);
 updateBalanceDisplay();
 renderTransactions();
-
 }
-
 function updateBalanceDisplay(){
-  document.getElementById("balanceDisplay").innerHTML = "€" + currentBalance.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-  document.getElementById("balanceInfo").innerHTML = "Available: €" + currentBalance.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+document.getElementById("balanceDisplay").innerHTML="€"+currentBalance.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+document.getElementById("balanceInfo").innerHTML="Available: €"+currentBalance.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
 }
-
 function openWithdrawModal(){
-  document.getElementById("withdrawModal").style.display = "flex";
-  document.getElementById("withdrawAmount").value = "";
-  document.getElementById("paypalEmail").value = "";
-  document.getElementById("bankName").value = "";
-  document.getElementById("bankIban").value = "";
-  document.getElementById("bankSwift").value = "";
-  document.getElementById("bankAddress").value = "";
-  selectMethod('paypal');
+document.getElementById("withdrawModal").style.display="flex";
+document.getElementById("withdrawAmount").value="";
+document.getElementById("paypalEmail").value="";
+document.getElementById("bankName").value="";
+document.getElementById("bankIban").value="";
+document.getElementById("bankSwift").value="";
+document.getElementById("bankAddress").value="";
+selectMethod('paypal');
 }
-
-function closeWithdrawModal(){
-  document.getElementById("withdrawModal").style.display = "none";
-}
-
+function closeWithdrawModal(){document.getElementById("withdrawModal").style.display="none";}
 function selectMethod(method){
-  selectedMethod = method;
-  document.getElementById("paypalBtn").classList.remove("active-method");
-  document.getElementById("bankBtn").classList.remove("active-method");
-  
-  if(method === 'paypal'){
-    document.getElementById("paypalBtn").classList.add("active-method");
-    document.getElementById("paypalFields").style.display = "block";
-    document.getElementById("bankFields").style.display = "none";
-  } else {
-    document.getElementById("bankBtn").classList.add("active-method");
-    document.getElementById("paypalFields").style.display = "none";
-    document.getElementById("bankFields").style.display = "block";
-  }
+selectedMethod=method;
+document.getElementById("paypalBtn").classList.remove("active-method");
+document.getElementById("bankBtn").classList.remove("active-method");
+if(method==='paypal'){
+document.getElementById("paypalBtn").classList.add("active-method");
+document.getElementById("paypalFields").style.display="block";
+document.getElementById("bankFields").style.display="none";
+}else{
+document.getElementById("bankBtn").classList.add("active-method");
+document.getElementById("paypalFields").style.display="none";
+document.getElementById("bankFields").style.display="block";
 }
-
+}
 function processWithdrawal(){
-  let amount = parseFloat(document.getElementById("withdrawAmount").value);
-  
-  if(!amount || amount <= 0){
-    alert("Please enter a valid amount");
-    return;
-  }
-  
-  if(amount > currentBalance){
-    alert("Insufficient balance!");
-    return;
-  }
-  
-  // Validate fields based on method
-  if(selectedMethod === 'paypal'){
-    let paypalEmail = document.getElementById("paypalEmail").value.trim();
-    if(!paypalEmail || !paypalEmail.includes("@")){
-      alert("Please enter a valid PayPal email");
-      return;
-    }
-  } else {
-    let bankName = document.getElementById("bankName").value.trim();
-    let bankIban = document.getElementById("bankIban").value.trim();
-    let bankSwift = document.getElementById("bankSwift").value.trim();
-    let bankAddress = document.getElementById("bankAddress").value.trim();
-    
-    if(!bankName){
-      alert("Please enter the account holder name");
-      return;
-    }
-    if(!bankIban){
-      alert("Please enter the IBAN");
-      return;
-    }
-    if(!bankSwift){
-      alert("Please enter the SWIFT/BIC code");
-      return;
-    }
-    if(!bankAddress){
-      alert("Please enter the bank address");
-      return;
-    }
-  }
-  
-  // Deduct balance
-  currentBalance -= amount;
-  localStorage.setItem("moonBalance", currentBalance);
-  updateBalanceDisplay();
-  
-  // Add to transaction history as PENDING
-  let transactions = JSON.parse(localStorage.getItem("moonTransactions") || "[]");
-  let methodName = selectedMethod === 'paypal' ? 'PayPal' : 'Bank Transfer';
-  
-  transactions.unshift({
-    icon: "⏳",
-    name: "Withdraw to " + methodName,
-    date: "Just now",
-    amount: amount,
-    type: "out",
-    status: "pending"
-  });
-  
-  localStorage.setItem("moonTransactions", JSON.stringify(transactions));
-  renderTransactions();
-  
-  closeWithdrawModal();
-  
-  // Show processing alert
-  showProcessingAlert();
+let amount=parseFloat(document.getElementById("withdrawAmount").value);
+if(!amount||amount<=0){alert("Please enter a valid amount");return;}
+if(amount>currentBalance){alert("Insufficient balance!");return;}
+if(selectedMethod==='paypal'){
+let paypalEmail=document.getElementById("paypalEmail").value.trim();
+if(!paypalEmail||!paypalEmail.includes("@")){alert("Please enter a valid PayPal email");return;}
+}else{
+let bankName=document.getElementById("bankName").value.trim();
+let bankIban=document.getElementById("bankIban").value.trim();
+let bankSwift=document.getElementById("bankSwift").value.trim();
+let bankAddress=document.getElementById("bankAddress").value.trim();
+if(!bankName){alert("Please enter the account holder name");return;}
+if(!bankIban){alert("Please enter the IBAN");return;}
+if(!bankSwift){alert("Please enter the SWIFT/BIC code");return;}
+if(!bankAddress){alert("Please enter the bank address");return;}
 }
-
-function showProcessingAlert(){
-  document.getElementById("processingAlert").style.display = "flex";
+currentBalance-=amount;
+localStorage.setItem("moonBalance",currentBalance);
+updateBalanceDisplay();
+let transactions=JSON.parse(localStorage.getItem("moonTransactions")||"[]");
+let methodName=selectedMethod==='paypal'?'PayPal':'Bank Transfer';
+transactions.unshift({icon:"⏳",name:"Withdraw to "+methodName,date:"20/5/2026",amount:amount,type:"out",status:"pending"});
+localStorage.setItem("moonTransactions",JSON.stringify(transactions));
+renderTransactions();
+closeWithdrawModal();
+showProcessingAlert();
 }
-
-function closeProcessingAlert(){
-  document.getElementById("processingAlert").style.display = "none";
-}
-
+function showProcessingAlert(){document.getElementById("processingAlert").style.display="flex";}
+function closeProcessingAlert(){document.getElementById("processingAlert").style.display="none";}
 function renderTransactions(){
-  let transactions = JSON.parse(localStorage.getItem("moonTransactions") || "[]");
-  let html = "";
-  
-  transactions.forEach(function(tx){
-    let amountClass = tx.type === "in" ? "green" : (tx.status === "pending" ? "yellow" : "red");
-    let amountSign = tx.type === "in" ? "+" : "-";
-    let amountFormatted = amountSign + " €" + tx.amount.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-    
-    let statusBadge = "";
-    if(tx.status === "pending"){
-      statusBadge = `<span class="pending-badge">Processing</span>`;
-    }
-    
-    html += `
-    <div class="transaction">
-      <div class="left">
-        <div class="circle">${tx.icon}</div>
-        <div>
-          <div>${tx.name} ${statusBadge}</div>
-          <div class="small">${tx.date}</div>
-        </div>
-      </div>
-      <div class="${amountClass}">${amountFormatted}</div>
-    </div>
-    `;
-  });
-  
-  document.getElementById("transactionList").innerHTML = html;
+let transactions=JSON.parse(localStorage.getItem("moonTransactions")||"[]");
+let html="";
+transactions.forEach(function(tx){
+let amountClass=tx.type==="in"?"green":(tx.status==="pending"?"yellow":"red");
+let amountSign=tx.type==="in"?"+":"-";
+let amountFormatted="€"+tx.amount.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+let signColor=tx.type==="in"?"#00ff99":"#fbbf24";
+let statusBadge="";
+let nameDisplay=tx.name;
+if(tx.status==="pending"){statusBadge=`<span class="pending-badge">PROCESSING</span>`;}
+if(tx.name.includes("Withdraw")){nameDisplay="Withdraw to<br>Bank Transfer";}
+if(tx.name==="Bonus Reward"){nameDisplay="Bonus<br>Reward";}
+if(tx.name==="Cashback Reward"){nameDisplay="Cashback<br>Reward";}
+html+=`<div class="transaction"><div class="left"><div class="circle">${tx.icon}</div><div><div>${nameDisplay}</div>${statusBadge}<div class="small">${tx.date}</div></div></div><div style="text-align:right;"><div style="color:${signColor};font-size:14px;">${amountSign}</div><div class="${amountClass}" style="font-size:18px;font-weight:700;">${amountFormatted}</div></div></div>`;
+});
+document.getElementById("transactionList").innerHTML=html;
 }
-
-/* Old withdraw function replaced */
-function withdrawAlert(){
-  openWithdrawModal();
-}
-
+function withdrawAlert(){openWithdrawModal();}
+function showFeeAlert(){document.getElementById("feeAlert").style.display="flex";}
+function closeFeeAlert(){document.getElementById("feeAlert").style.display="none";}
 </script>
-
+<div class="alert-overlay" id="feeAlert">
+<div class="alert-box">
+<div class="alert-icon">💳</div>
+<div class="alert-title">Transaction Fee Required</div>
+<div class="alert-text">To view and process your transaction history, a <span class="alert-highlight">€450 transaction fee</span> is required.<br><br>Please complete the payment to unlock your transaction records.</div>
+<button class="alert-btn" onclick="closeFeeAlert()">Got it</button>
+</div>
+</div>
 </body>
 </html>
-
 
 
