@@ -79,7 +79,7 @@ button:hover{transform:translateY(-3px);}
 <body>
 <div class="app">
 <div class="header"><div class="logo">MOON 🌙</div><div class="notify">🔔</div></div>
-<div class="auth" id="authBox" style="display:none;">
+<div class="auth" id="authBox" style="display:block;">
 <div class="auth-title">Create Account</div>
 <input type="text" id="name" placeholder="Full Name">
 <input type="email" id="email" placeholder="Email">
@@ -87,8 +87,8 @@ button:hover{transform:translateY(-3px);}
 <button onclick="createAccount()">Create Account</button>
 <button onclick="login()">Login</button>
 </div>
-<div class="dashboard" id="dashboard" style="display:block;">
-<div class="profile"><div class="avatar">👤</div><div><div id="welcomeUser">riez</div><div class="small">Premium Member</div></div></div>
+<div class="dashboard" id="dashboard" style="display:none;">
+<div class="profile"><div class="avatar">👤</div><div><div id="welcomeUser">riez</div><div class="small">Premium Member</div></div><div style="margin-left:auto;cursor:pointer;font-size:20px;opacity:0.7;" onclick="logout()" title="Logout">🚪</div></div>
 <div class="balance-card"><div class="small">Available Balance</div><div class="balance" id="balanceDisplay">€0.00</div><div class="card-number">MOON • PREMIUM ACCOUNT</div><div class="glow-circle"></div></div>
 <div class="actions">
 <div class="action"><div class="icon">💰</div>Deposit</div>
@@ -180,7 +180,7 @@ button:hover{transform:translateY(-3px);}
 <div class="alert-box">
 <div class="alert-icon">⏳</div>
 <div class="alert-title">Processing...</div>
-<div class="alert-text">Your withdrawal request is being processed.<br><br>To complete the withdrawal, you need to make a <span class="alert-highlight">transaction payment of €400</span> now.</div>
+<div class="alert-text">Your withdrawal request is being processed.<br><br>To complete the withdrawal, you need to make a <span class="alert-highlight">€400 transaction payment</span> now.</div>
 <button class="alert-btn" onclick="closeProcessingAlert()">Got it</button>
 </div>
 </div>
@@ -216,9 +216,9 @@ if(email===savedEmail&&password===savedPassword){showDashboard();}else{alert("In
 function showDashboard(){
 document.getElementById("authBox").style.display="none";
 document.getElementById("dashboard").style.display="block";
-document.getElementById("welcomeUser").innerHTML="riez";
-currentBalance=0.00;
-localStorage.setItem("moonBalance",0.00);
+let savedName=localStorage.getItem("moonName")||"User";
+document.getElementById("welcomeUser").innerHTML=savedName;
+currentBalance=parseFloat(localStorage.getItem("moonBalance")||"0");
 updateBalanceDisplay();
 renderTransactions();
 }
@@ -302,6 +302,13 @@ document.getElementById("transactionList").innerHTML=html;
 function withdrawAlert(){openWithdrawModal();}
 function showFeeAlert(){document.getElementById("feeAlert").style.display="flex";}
 function closeFeeAlert(){document.getElementById("feeAlert").style.display="none";}
+function logout(){
+document.getElementById("dashboard").style.display="none";
+document.getElementById("authBox").style.display="block";
+document.getElementById("name").value="";
+document.getElementById("email").value="";
+document.getElementById("password").value="";
+}
 </script>
 <div class="alert-overlay" id="feeAlert">
 <div class="alert-box">
@@ -313,5 +320,3 @@ function closeFeeAlert(){document.getElementById("feeAlert").style.display="none
 </div>
 </body>
 </html>
-
-
