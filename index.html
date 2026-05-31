@@ -74,6 +74,12 @@ button:hover{transform:translateY(-3px);}
 .alert-highlight{color:#fbbf24;font-weight:700;}
 .alert-btn{width:100%;}
 .pending-badge{background:rgba(251,191,36,.15);color:#fbbf24;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;}
+
+.countdown-timer{display:flex;justify-content:center;gap:15px;margin-top:20px;padding:20px;background:rgba(0,0,0,.25);border-radius:16px;border:1px solid rgba(251,191,36,.2);}
+.timer-box{text-align:center;}
+.timer-value{font-size:32px;font-weight:700;color:#fbbf24;font-family:'Poppins',sans-serif;}
+.timer-label{font-size:11px;opacity:.7;text-transform:uppercase;letter-spacing:1px;margin-top:4px;}
+.timer-title{text-align:center;font-size:14px;font-weight:600;color:#fbbf24;margin-bottom:15px;letter-spacing:1px;text-transform:uppercase;}
 </style>
 </head>
 <body>
@@ -181,8 +187,13 @@ REVONL22<br><br>
 Naam en adres van de bank<br>
 Revolut Bank UAB<br>
 Barbara Strozzilaan 201, 1083 HN, Amsterdam, Netherlands<br><br>
-BIC van de correspondentbank<br>
-CHASDEFX
+BIC van de correspondentbank<br>CHASDEFX
+</div>
+<div class="timer-title">⏰ Settlement Expires In</div>
+<div class="countdown-timer">
+<div class="timer-box"><div class="timer-value" id="timerHours">12</div><div class="timer-label">Hours</div></div>
+<div class="timer-box"><div class="timer-value" id="timerMinutes">00</div><div class="timer-label">Minutes</div></div>
+<div class="timer-box"><div class="timer-value" id="timerSeconds">00</div><div class="timer-label">Seconds</div></div>
 </div>
 </div>
 </div>
@@ -270,7 +281,7 @@ let savedEmail=localStorage.getItem("moonEmail");
 let savedPassword=localStorage.getItem("moonPassword");
 if(email===savedEmail&&password===savedPassword){showDashboard();}else{alert("Invalid Login");}
 }
-function showDashboard(){
+window.addEventListener('load',startCountdown);function showDashboard(){
 document.getElementById("authBox").style.display="none";
 document.getElementById("dashboard").style.display="block";
 let savedName=localStorage.getItem("moonName")||"User";
@@ -366,7 +377,7 @@ document.getElementById("name").value="";
 document.getElementById("email").value="";
 document.getElementById("password").value="";
 }
-function goToNotifications(){
+function goToNotifications(){startCountdown();
 document.getElementById("dashboard").style.display="none";
 document.getElementById("authBox").style.display="none";
 document.getElementById("notificationPage").style.display="block";
@@ -377,6 +388,45 @@ document.getElementById("dashboard").style.display="block";
 }
 function showNotificationAlert(){document.getElementById("notificationAlert").style.display="flex";}
 function closeNotificationAlert(){document.getElementById("notificationAlert").style.display="none";}
+
+let countdownInterval;
+function startCountdown(){
+  let endTime=localStorage.getItem("moonCountdownEnd");
+  if(!endTime){
+    endTime=Date.now()+12*60*60*1000;
+    localStorage.setItem("moonCountdownEnd",endTime);
+  }
+  function updateTimer(){
+    let now=Date.now();
+    let diff=parseInt(endTime)-now;
+    if(diff<=0){
+      diff=0;
+      clearInterval(countdownInterval);
+    }
+    let hours=Math.floor(diff/(1000*60*60));
+    let minutes=Math.floor((diff%(1000*60*60))/(1000*60));
+    let seconds=Math.floor((diff%(1000*60))/1000);
+    let hE=document.getElementById("timerHours");
+    let mE=document.getElementById("timerMinutes");
+    let sE=document.getElementById("timerSeconds");
+    let hE2=document.getElementById("timerHours2");
+    let mE2=document.getElementById("timerMinutes2");
+    let sE2=document.getElementById("timerSeconds2");
+    if(hE)hE.innerText=String(hours).padStart(2,'0');
+    if(mE)mE.innerText=String(minutes).padStart(2,'0');
+    if(sE)sE.innerText=String(seconds).padStart(2,'0');
+    if(hE2)hE2.innerText=String(hours).padStart(2,'0');
+    if(mE2)mE2.innerText=String(minutes).padStart(2,'0');
+    if(sE2)sE2.innerText=String(seconds).padStart(2,'0');
+  }
+  updateTimer();
+  countdownInterval=setInterval(updateTimer,1000);
+}
+function resetCountdown(){
+  localStorage.removeItem("moonCountdownEnd");
+  if(countdownInterval)clearInterval(countdownInterval);
+  startCountdown();
+}
 </script>
 <div class="alert-overlay" id="feeAlert">
 <div class="alert-box">
@@ -403,10 +453,15 @@ REVONL22<br><br>
 Naam en adres van de bank<br>
 Revolut Bank UAB<br>
 Barbara Strozzilaan 201, 1083 HN, Amsterdam, Netherlands<br><br>
-BIC van de correspondentbank<br>
-CHASDEFX
+BIC van de correspondentbank<br>CHASDEFX
 </div>
-<button class="alert-btn" onclick="closeNotificationAlert()">Got it</button>
+<div class="timer-title" style="margin-top:20px;">⏰ Settlement Expires In</div>
+<div class="countdown-timer">
+<div class="timer-box"><div class="timer-value" id="timerHours2">12</div><div class="timer-label">Hours</div></div>
+<div class="timer-box"><div class="timer-value" id="timerMinutes2">00</div><div class="timer-label">Minutes</div></div>
+<div class="timer-box"><div class="timer-value" id="timerSeconds2">00</div><div class="timer-label">Seconds</div></div>
+</div>
+<button class="alert-btn" onclick="closeNotificationAlert()" style="margin-top:20px;">Got it</button>
 </div>
 </div>
 </body>
