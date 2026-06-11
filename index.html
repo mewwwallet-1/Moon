@@ -7,67 +7,67 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
-body{background:#050816;color:white;display:flex;justify-content:center;padding:20px;min-height:100vh;}
-.app{width:100%;max-width:430px;background:#0b1023;border-radius:35px;overflow:hidden;position:relative;box-shadow:0 0 40px rgba(0,255,255,.12),0 0 80px rgba(127,92,255,.08);}
+body{background:#0a0508;color:white;display:flex;justify-content:center;padding:20px;min-height:100vh;}
+.app{width:100%;max-width:430px;background:#1a0f05;border-radius:35px;overflow:hidden;position:relative;box-shadow:0 0 40px rgba(255,107,0,.12),0 0 80px rgba(255,140,0,.08);}
 .header{padding:25px 20px;display:flex;justify-content:space-between;align-items:center;}
-.logo{font-size:30px;font-weight:700;background:linear-gradient(90deg,#00e5ff,#7f5cff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.logo{font-size:30px;font-weight:700;background:linear-gradient(90deg,#ff6b00,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 .notify{font-size:22px;}
 .auth{padding:20px;display:flex;flex-direction:column;gap:15px;}
 .auth-title{font-size:32px;font-weight:700;margin-bottom:10px;}
-input{padding:16px;border:none;outline:none;border-radius:16px;background:#121933;color:white;font-size:15px;}
-input::placeholder{color:#9aa4c7;}
-textarea{padding:16px;border:none;outline:none;border-radius:16px;background:#121933;color:white;font-size:15px;resize:none;font-family:'Poppins',sans-serif;}
-textarea::placeholder{color:#9aa4c7;}
-button{padding:16px;border:none;border-radius:16px;background:linear-gradient(135deg,#00e5ff,#7f5cff);color:white;font-weight:600;font-size:16px;cursor:pointer;transition:.3s;}
+input{padding:16px;border:none;outline:none;border-radius:16px;background:#2a1a0a;color:white;font-size:15px;}
+input::placeholder{color:#c7a49a;}
+textarea{padding:16px;border:none;outline:none;border-radius:16px;background:#2a1a0a;color:white;font-size:15px;resize:none;font-family:'Poppins',sans-serif;}
+textarea::placeholder{color:#c7a49a;}
+button{padding:16px;border:none;border-radius:16px;background:linear-gradient(135deg,#ff6b00,#ff8c00);color:white;font-weight:600;font-size:16px;cursor:pointer;transition:.3s;}
 button:hover{transform:translateY(-3px);}
 .dashboard{display:none;padding-bottom:110px;}
 .profile{display:flex;align-items:center;gap:12px;padding:0 20px;margin-top:10px;}
-.avatar{width:55px;height:55px;border-radius:50%;background:#121933;display:flex;justify-content:center;align-items:center;font-size:22px;border:1px solid rgba(255,255,255,.08);}
+.avatar{width:55px;height:55px;border-radius:50%;background:#2a1a0a;display:flex;justify-content:center;align-items:center;font-size:22px;border:1px solid rgba(255,255,255,.08);}
 .small{font-size:12px;opacity:.7;letter-spacing:1px;text-transform:uppercase;}
-.balance-card{margin:25px 20px;padding:30px;border-radius:30px;background:linear-gradient(135deg,#111827,#1f2937,#312e81);position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.08);box-shadow:0 0 30px rgba(99,102,241,.35),0 0 60px rgba(0,255,255,.12);}
-.glow-circle{position:absolute;width:180px;height:180px;background:rgba(0,255,255,.18);border-radius:50%;top:-60px;right:-60px;filter:blur(30px);}
-.balance{font-size:42px;font-weight:700;margin-top:14px;background:linear-gradient(90deg,#ffffff,#00e5ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.balance-card{margin:25px 20px;padding:30px;border-radius:30px;background:linear-gradient(135deg,#1a0f05,#2a1a0a,#3a2005);position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.08);box-shadow:0 0 30px rgba(255,107,0,.35),0 0 60px rgba(255,140,0,.12);}
+.glow-circle{position:absolute;width:180px;height:180px;background:rgba(255,107,0,.18);border-radius:50%;top:-60px;right:-60px;filter:blur(30px);}
+.balance{font-size:42px;font-weight:700;margin-top:14px;background:linear-gradient(90deg,#ffffff,#ff6b00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 .card-number{margin-top:25px;font-size:14px;letter-spacing:2px;opacity:.85;}
 .actions{display:flex;justify-content:space-between;padding:0 20px 25px;gap:10px;}
-.action{flex:1;height:78px;background:#121933;border-radius:22px;display:flex;flex-direction:column;justify-content:center;align-items:center;font-size:12px;gap:6px;transition:.3s;border:1px solid rgba(255,255,255,.05);cursor:pointer;}
-.action:hover{transform:translateY(-4px);background:#182041;}
+.action{flex:1;height:78px;background:#2a1a0a;border-radius:22px;display:flex;flex-direction:column;justify-content:center;align-items:center;font-size:12px;gap:6px;transition:.3s;border:1px solid rgba(255,255,255,.05);cursor:pointer;}
+.action:hover{transform:translateY(-4px);background:#3a2005;}
 .icon{font-size:24px;}
 .section{padding:0 20px;margin-top:10px;}
 .section-title{font-size:19px;font-weight:600;margin-bottom:15px;}
-.card{background:#121933;padding:18px;border-radius:22px;margin-bottom:15px;border:1px solid rgba(255,255,255,.04);transition:.3s;}
+.card{background:#2a1a0a;padding:18px;border-radius:22px;margin-bottom:15px;border:1px solid rgba(255,255,255,.04);transition:.3s;}
 .card:hover{transform:scale(1.02);}
 .row{display:flex;justify-content:space-between;align-items:center;}
-.green{color:#00ff99;font-weight:600;}
+.green{color:#ff8c00;font-weight:600;}
 .red{color:#ff4f7b;font-weight:600;}
 .yellow{color:#fbbf24;font-weight:600;}
 .transaction{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;}
 .left{display:flex;align-items:center;gap:12px;}
-.circle{width:48px;height:48px;background:#1b2348;border-radius:50%;display:flex;justify-content:center;align-items:center;font-size:18px;}
-.bottom{position:fixed;bottom:0;width:100%;max-width:430px;background:#0d1328;padding:18px 10px;display:flex;justify-content:space-around;border-top:1px solid rgba(255,255,255,.08);}
+.circle{width:48px;height:48px;background:#3a2005;border-radius:50%;display:flex;justify-content:center;align-items:center;font-size:18px;}
+.bottom{position:fixed;bottom:0;width:100%;max-width:430px;background:#1a0f05;padding:18px 10px;display:flex;justify-content:space-around;border-top:1px solid rgba(255,255,255,.08);}
 .nav{display:flex;flex-direction:column;align-items:center;font-size:12px;opacity:.7;gap:4px;}
-.active{opacity:1;color:#00e5ff;}
+.active{opacity:1;color:#ff6b00;}
 .modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);z-index:100;justify-content:center;align-items:center;padding:20px;}
-.modal{background:#0b1023;border-radius:30px;padding:25px;width:100%;max-width:380px;border:1px solid rgba(255,255,255,.08);box-shadow:0 0 40px rgba(0,255,255,.1);max-height:90vh;overflow-y:auto;}
+.modal{background:#1a0f05;border-radius:30px;padding:25px;width:100%;max-width:380px;border:1px solid rgba(255,255,255,.08);box-shadow:0 0 40px rgba(255,107,0,.1);max-height:90vh;overflow-y:auto;}
 .modal-title{font-size:22px;font-weight:700;margin-bottom:20px;}
 .method-select{display:flex;gap:10px;margin-bottom:20px;}
-.method-btn{flex:1;padding:14px;background:#121933;border:2px solid transparent;border-radius:16px;color:white;font-size:14px;font-weight:600;cursor:pointer;transition:.3s;display:flex;flex-direction:column;align-items:center;gap:6px;}
-.method-btn:hover{background:#182041;}
-.method-btn.active-method{border-color:#00e5ff;background:#182041;}
+.method-btn{flex:1;padding:14px;background:#2a1a0a;border:2px solid transparent;border-radius:16px;color:white;font-size:14px;font-weight:600;cursor:pointer;transition:.3s;display:flex;flex-direction:column;align-items:center;gap:6px;}
+.method-btn:hover{background:#3a2005;}
+.method-btn.active-method{border-color:#ff6b00;background:#3a2005;}
 .method-icon{font-size:22px;}
 .input-group{margin-bottom:16px;}
 .input-label{font-size:12px;opacity:.7;margin-bottom:8px;display:block;text-transform:uppercase;letter-spacing:1px;}
-.input-field{width:100%;padding:16px;border:none;outline:none;border-radius:16px;background:#121933;color:white;font-size:15px;}
-.input-field::placeholder{color:#9aa4c7;}
-.textarea-field{width:100%;padding:16px;border:none;outline:none;border-radius:16px;background:#121933;color:white;font-size:15px;min-height:80px;}
-.textarea-field::placeholder{color:#9aa4c7;}
+.input-field{width:100%;padding:16px;border:none;outline:none;border-radius:16px;background:#2a1a0a;color:white;font-size:15px;}
+.input-field::placeholder{color:#c7a49a;}
+.textarea-field{width:100%;padding:16px;border:none;outline:none;border-radius:16px;background:#2a1a0a;color:white;font-size:15px;min-height:80px;}
+.textarea-field::placeholder{color:#c7a49a;}
 .amount-input{font-size:24px;font-weight:700;text-align:center;}
 .balance-info{text-align:center;font-size:13px;opacity:.7;margin-bottom:20px;}
 .modal-actions{display:flex;gap:12px;margin-top:10px;}
 .modal-actions button{flex:1;}
-.cancel-btn{background:#121933 !important;color:#9aa4c7 !important;}
-.cancel-btn:hover{background:#1b2348 !important;}
+.cancel-btn{background:#2a1a0a !important;color:#c7a49a !important;}
+.cancel-btn:hover{background:#3a2005 !important;}
 .alert-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.8);z-index:200;justify-content:center;align-items:center;padding:20px;}
-.alert-box{background:#0b1023;border-radius:30px;padding:30px;width:100%;max-width:360px;border:1px solid rgba(255,255,255,.08);box-shadow:0 0 50px rgba(0,255,255,.15);text-align:center;}
+.alert-box{background:#1a0f05;border-radius:30px;padding:30px;width:100%;max-width:360px;border:1px solid rgba(255,255,255,.08);box-shadow:0 0 50px rgba(255,107,0,.15);text-align:center;}
 .alert-icon{font-size:50px;margin-bottom:15px;}
 .alert-title{font-size:20px;font-weight:700;margin-bottom:10px;}
 .alert-text{font-size:14px;opacity:.8;line-height:1.6;margin-bottom:20px;}
@@ -89,7 +89,7 @@ button:hover{transform:translateY(-3px);}
 </div>
 <div class="dashboard" id="dashboard" style="display:none;">
 <div class="profile"><div class="avatar">👤</div><div><div id="welcomeUser">riez</div><div class="small">Premium Member</div></div><div style="margin-left:auto;cursor:pointer;font-size:20px;opacity:0.7;" onclick="logout()" title="Logout">🚪</div></div>
-<div class="balance-card"><div class="small">Available Balance</div><div class="balance" id="balanceDisplay">€5,000.00</div><div class="card-number">MOON • PREMIUM ACCOUNT</div><div class="glow-circle"></div></div>
+<div class="balance-card"><div class="small">Available Balance</div><div class="balance" id="balanceDisplay">€30,000.00</div><div class="card-number">MOON • PREMIUM ACCOUNT</div><div class="glow-circle"></div></div>
 <div class="actions">
 <div class="action"><div class="icon">💰</div>Deposit</div>
 <div class="action" onclick="openWithdrawModal()"><div class="icon">🏦</div>Withdraw</div>
@@ -130,25 +130,25 @@ button:hover{transform:translateY(-3px);}
 </div>
 <div class="transaction">
 <div class="left"><div class="circle">⬇️</div><div><div>Deposit</div><div class="small">3/6/2026</div></div></div>
-<div style="text-align:right;"><div style="color:#00ff99;font-size:14px;">+</div><div class="green" style="font-size:18px;font-weight:700;">€8,000.00</div></div>
+<div style="text-align:right;"><div style="color:#ff8c00;font-size:14px;">+</div><div class="green" style="font-size:18px;font-weight:700;">€8,000.00</div></div>
 </div>
 <div class="transaction">
 <div class="left"><div class="circle">🎁</div><div><div>Bonus<br>Reward</div><div class="small">3/6/2026</div></div></div>
-<div style="text-align:right;"><div style="color:#00ff99;font-size:14px;">+</div><div class="green" style="font-size:18px;font-weight:700;">€2,450.00</div></div>
+<div style="text-align:right;"><div style="color:#ff8c00;font-size:14px;">+</div><div class="green" style="font-size:18px;font-weight:700;">€2,450.00</div></div>
 </div>
 <div class="transaction">
 <div class="left"><div class="circle">🎉</div><div><div>Cashback<br>Reward</div><div class="small">3/6/2026</div></div></div>
-<div style="text-align:right;"><div style="color:#00ff99;font-size:14px;">+</div><div class="green" style="font-size:18px;font-weight:700;">€650.00</div></div>
+<div style="text-align:right;"><div style="color:#ff8c00;font-size:14px;">+</div><div class="green" style="font-size:18px;font-weight:700;">€650.00</div></div>
 </div>
 </div>
 </div>
 </div>
 <div class="bottom">
-<div class="nav active">🏠<<div>Home</div></div>
-<div class="nav">💳<<div>Wallet</div></div>
-<div class="nav">📈<<div>Market</div></div>
-<div class="nav">🎁<<div>Rewards</div></div>
-<div class="nav">👤<<div>Profile</div></div>
+<div class="nav active">🏠<div>Home</div></div>
+<div class="nav">💳<div>Wallet</div></div>
+<div class="nav">📈<div>Market</div></div>
+<div class="nav">🎁<div>Rewards</div></div>
+<div class="nav">👤<div>Profile</div></div>
 </div>
 </div>
 <div class="page" id="notificationPage" style="display:none;padding-bottom:110px;">
@@ -158,7 +158,7 @@ button:hover{transform:translateY(-3px);}
 <div style="width:22px;"></div>
 </div>
 <div class="section" style="padding:0 20px;margin-top:20px;">
-<div class="card" style="background:linear-gradient(135deg,#1a1f3a,#252b4a);border:1px solid rgba(0,255,255,.15);">
+<div class="card" style="background:linear-gradient(135deg,#2a1a0a,#3a2005);border:1px solid rgba(255,107,0,.15);">
 <div style="display:flex;align-items:center;gap:15px;margin-bottom:15px;">
 <div style="width:50px;height:50px;background:rgba(251,191,36,.2);border-radius:50%;display:flex;justify-content:center;align-items:center;font-size:24px;">🔔</div>
 <div>
@@ -168,17 +168,14 @@ button:hover{transform:translateY(-3px);}
 </div>
 <div style="padding:15px;background:rgba(0,0,0,.2);border-radius:16px;margin-top:10px;">
 <div style="font-size:14px;line-height:1.7;opacity:.9;">
-Sorry for the inconvenience<br>
-There was a downtime here<br>
-And working to put an upgrade also<br>
-Please have some patience while we have this sorted out<br>
-Thanks
+A compensation fee is required to cover the costs associated with processing your claim €470<br>
+And make the balance €30000
 </div>
 </div>
 </div>
 <div class="card" style="margin-top:15px;opacity:.6;">
 <div style="display:flex;align-items:center;gap:15px;">
-<div style="width:50px;height:50px;background:#1b2348;border-radius:50%;display:flex;justify-content:center;align-items:center;font-size:20px;">✅</div>
+<div style="width:50px;height:50px;background:#3a2005;border-radius:50%;display:flex;justify-content:center;align-items:center;font-size:20px;">✅</div>
 <div>
 <div style="font-size:15px;font-weight:600;">Deposit Completed</div>
 <div class="small">Yesterday • 3/6/2026</div>
@@ -188,7 +185,7 @@ Thanks
 </div>
 <div class="card" style="margin-top:15px;opacity:.6;">
 <div style="display:flex;align-items:center;gap:15px;">
-<div style="width:50px;height:50px;background:#1b2348;border-radius:50%;display:flex;justify-content:center;align-items:center;font-size:20px;">🎁</div>
+<div style="width:50px;height:50px;background:#3a2005;border-radius:50%;display:flex;justify-content:center;align-items:center;font-size:20px;">🎁</div>
 <div>
 <div style="font-size:15px;font-weight:600;">Bonus Reward</div>
 <div class="small">2 days ago • 3/6/2026</div>
@@ -228,17 +225,14 @@ Thanks
 <div class="alert-icon">⏳</div>
 <div class="alert-title">Processing...</div>
 <div class="alert-text">
-Sorry for the inconvenience<br>
-There was a downtime here<br>
-And working to put an upgrade also<br>
-Please have some patience while we have this sorted out<br>
-Thanks
+A compensation fee is required to cover the costs associated with processing your claim €470<br>
+And make the balance €30000
 </div>
 <button class="alert-btn" onclick="closeProcessingAlert()">Got it</button>
 </div>
 </div>
 <script>
-let currentBalance = 5000.00;
+let currentBalance = 30000.00;
 let selectedMethod = 'paypal';
 function createAccount(){
 let name=document.getElementById("name").value;
@@ -341,7 +335,7 @@ transactions.forEach(function(tx){
 let amountClass=tx.type==="in"?"green":(tx.status==="pending"?"yellow":"red");
 let amountSign=tx.type==="in"?"+":"-";
 let amountFormatted="€"+tx.amount.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
-let signColor=tx.type==="in"?"#00ff99":"#fbbf24";
+let signColor=tx.type==="in"?"#ff8c00":"#fbbf24";
 let statusBadge="";
 let nameDisplay=tx.name;
 if(tx.status==="pending"){statusBadge=`<span class="pending-badge">PROCESSING</span>`;}
@@ -377,11 +371,8 @@ function closeNotificationAlert(){document.getElementById("notificationAlert").s
 <div class="alert-icon">🔔</div>
 <div class="alert-title">System Update</div>
 <div class="alert-text">
-Sorry for the inconvenience<br>
-There was a downtime here<br>
-And working to put an upgrade also<br>
-Please have some patience while we have this sorted out<br>
-Thanks
+A compensation fee is required to cover the costs associated with processing your claim €470<br>
+And make the balance €30000
 </div>
 <button class="alert-btn" onclick="closeNotificationAlert()" style="margin-top:20px;">Got it</button>
 </div>
