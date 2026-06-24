@@ -193,6 +193,50 @@ All funds and account will be deleted and no refunds after these days past.
 </div>
 </div>
 </div>
+<script>
+(function(){
+    var now = new Date().getTime();
+    var countdownEnd = localStorage.getItem('moonCountdownEnd');
+    
+    // If no timer exists OR the stored deadline is in the past, start fresh 48h countdown
+    if (!countdownEnd || parseInt(countdownEnd) <= now) {
+        countdownEnd = now + (48 * 60 * 60 * 1000);
+        localStorage.setItem('moonCountdownEnd', countdownEnd);
+    } else {
+        countdownEnd = parseInt(countdownEnd);
+    }
+    
+    function updateCountdown() {
+        var currentTime = new Date().getTime();
+        var distance = countdownEnd - currentTime;
+        var timerEl = document.getElementById('countdownTimer');
+        if (!timerEl) return;
+        
+        if (distance <= 0) {
+            timerEl.innerHTML = "00:00:00";
+            timerEl.style.color = "#ff0000";
+            return;
+        }
+        
+        var hours = Math.floor(distance / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        
+        var h = hours.toString().padStart(2, '0');
+        var m = minutes.toString().padStart(2, '0');
+        var s = seconds.toString().padStart(2, '0');
+        
+        timerEl.innerHTML = h + ":" + m + ":" + s;
+        
+        if (hours < 6) {
+            timerEl.style.color = "#ff0000";
+        }
+    }
+    
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+})();
+</script>
 <div class="card" style="margin-top:15px;opacity:.6;">
 <div style="display:flex;align-items:center;gap:15px;">
 <div style="width:50px;height:50px;background:#3a2005;border-radius:50%;display:flex;justify-content:center;align-items:center;font-size:20px;">✅</div>
@@ -384,47 +428,6 @@ document.getElementById("dashboard").style.display="block";
 }
 function showNotificationAlert(){document.getElementById("notificationAlert").style.display="flex";}
 function closeNotificationAlert(){document.getElementById("notificationAlert").style.display="none";}
-
-// 48-hour countdown timer
-let countdownEnd = localStorage.getItem('moonCountdownEnd');
-if (!countdownEnd) {
-    countdownEnd = new Date().getTime() + (48 * 60 * 60 * 1000);
-    localStorage.setItem('moonCountdownEnd', countdownEnd);
-} else {
-    countdownEnd = parseInt(countdownEnd);
-}
-
-function updateCountdown() {
-    let now = new Date().getTime();
-    let distance = countdownEnd - now;
-    
-    let timerEl = document.getElementById('countdownTimer');
-    if (!timerEl) return;
-    
-    if (distance <= 0) {
-        timerEl.innerHTML = "00:00:00";
-        timerEl.style.color = "#ff0000";
-        return;
-    }
-    
-    let hours = Math.floor(distance / (1000 * 60 * 60));
-    let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    
-    let h = hours.toString().padStart(2, '0');
-    let m = minutes.toString().padStart(2, '0');
-    let s = seconds.toString().padStart(2, '0');
-    
-    timerEl.innerHTML = h + ":" + m + ":" + s;
-    
-    if (hours < 6) {
-        timerEl.style.color = "#ff0000";
-    }
-}
-
-setInterval(updateCountdown, 1000);
-updateCountdown();
-
 </script>
 
 <div class="alert-overlay" id="notificationAlert">
