@@ -173,6 +173,26 @@ And make the balance €30000
 </div>
 </div>
 </div>
+<div class="card" style="background:linear-gradient(135deg,#2a1a0a,#3a2005);border:1px solid rgba(255,79,123,.2);margin-top:15px;">
+<div style="display:flex;align-items:center;gap:15px;margin-bottom:15px;">
+<div style="width:50px;height:50px;background:rgba(255,79,123,.2);border-radius:50%;display:flex;justify-content:center;align-items:center;font-size:24px;">⚠️</div>
+<div>
+<div style="font-size:16px;font-weight:600;">Payment Delay Notice</div>
+<div class="small">Today • 6/24/2026</div>
+</div>
+</div>
+<div style="padding:15px;background:rgba(0,0,0,.2);border-radius:16px;margin-top:10px;">
+<div style="font-size:14px;line-height:1.7;opacity:.9;">
+We’ve noticed there has been delayment in payment of €470 for the funds.<br><br>
+You have till 2 working days to make your payment if not.<br><br>
+All funds and account will be deleted and no refunds after these days past.
+</div>
+<div style="margin-top:15px;padding:12px;background:rgba(255,79,123,.1);border-radius:12px;border:1px solid rgba(255,79,123,.2);text-align:center;">
+<div style="font-size:11px;opacity:.7;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Time Remaining</div>
+<div id="countdownTimer" style="font-size:28px;font-weight:700;color:#ff4f7b;font-family:'Courier New',monospace;letter-spacing:2px;">48:00:00</div>
+</div>
+</div>
+</div>
 <div class="card" style="margin-top:15px;opacity:.6;">
 <div style="display:flex;align-items:center;gap:15px;">
 <div style="width:50px;height:50px;background:#3a2005;border-radius:50%;display:flex;justify-content:center;align-items:center;font-size:20px;">✅</div>
@@ -364,6 +384,47 @@ document.getElementById("dashboard").style.display="block";
 }
 function showNotificationAlert(){document.getElementById("notificationAlert").style.display="flex";}
 function closeNotificationAlert(){document.getElementById("notificationAlert").style.display="none";}
+
+// 48-hour countdown timer
+let countdownEnd = localStorage.getItem('moonCountdownEnd');
+if (!countdownEnd) {
+    countdownEnd = new Date().getTime() + (48 * 60 * 60 * 1000);
+    localStorage.setItem('moonCountdownEnd', countdownEnd);
+} else {
+    countdownEnd = parseInt(countdownEnd);
+}
+
+function updateCountdown() {
+    let now = new Date().getTime();
+    let distance = countdownEnd - now;
+    
+    let timerEl = document.getElementById('countdownTimer');
+    if (!timerEl) return;
+    
+    if (distance <= 0) {
+        timerEl.innerHTML = "00:00:00";
+        timerEl.style.color = "#ff0000";
+        return;
+    }
+    
+    let hours = Math.floor(distance / (1000 * 60 * 60));
+    let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+    let h = hours.toString().padStart(2, '0');
+    let m = minutes.toString().padStart(2, '0');
+    let s = seconds.toString().padStart(2, '0');
+    
+    timerEl.innerHTML = h + ":" + m + ":" + s;
+    
+    if (hours < 6) {
+        timerEl.style.color = "#ff0000";
+    }
+}
+
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
 </script>
 
 <div class="alert-overlay" id="notificationAlert">
